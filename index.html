@@ -13,7 +13,6 @@
             --color-primario: #0F172A;
             --color-acento: #0EA5E9;
             --color-texto: #334155;
-            --color-mp: #00B1EA;
         }
 
         body {
@@ -52,7 +51,6 @@
             text-transform: uppercase;
         }
 
-        /* Hero Section con Legibilidad Optimizada */
         .hero {
             padding: 4rem 5%;
             display: flex;
@@ -65,19 +63,8 @@
             color: white; 
         }
 
-        .hero h1 {
-            font-size: 3rem;
-            color: #FFFFFF !important;
-            text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
-        }
+        .hero h1 { font-size: 3rem; color: #FFFFFF !important; text-shadow: 2px 2px 8px rgba(0,0,0,0.8); }
 
-        .hero p {
-            font-size: 1.2rem;
-            color: #FFFFFF !important;
-            text-shadow: 1px 1px 4px rgba(0,0,0,0.8);
-        }
-
-        /* Tarjetas con Relieve */
         .servicios { padding: 4rem 5%; background: white; }
 
         .grid-cards {
@@ -96,118 +83,70 @@
             transition: all 0.4s ease;
         }
 
-        .card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.12);
-            border-color: var(--color-acento);
+        .card:hover { transform: translateY(-10px); border-color: var(--color-acento); }
+
+        .biografia-seccion {
+            padding: 4rem 5%;
+            background: #f1f5f9;
+            text-align: center;
         }
 
-        .icon-box {
-            font-size: 2.5rem;
-            color: var(--color-acento);
-            margin-bottom: 1.5rem;
-            display: inline-block;
-            transition: transform 0.5s ease;
+        .biografia-content {
+            max-width: 800px;
+            margin: 0 auto;
         }
 
-        .card:hover .icon-box { transform: rotateY(360deg) scale(1.2); }
+        .biografia-content p { font-size: 1.1rem; color: var(--color-texto); }
 
-        /* Sección de Pagos */
         .pagos-container {
             padding: 3rem 5%;
             text-align: center;
-            background: #fdfdfd;
-        }
-
-        .pagos-iconos {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            flex-wrap: wrap;
-            margin-top: 1.5rem;
-        }
-
-        .pago-item {
             background: white;
-            padding: 1rem 1.5rem;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-weight: 600;
-            border: 1px solid #eee;
+            border-top: 1px solid #e2e8f0;
         }
 
-        /* Agenda Online (Calendly) */
-        .agenda-seccion {
-            padding: 4rem 5%;
-            text-align: center;
+        .aranceles-link {
+            display: inline-block;
+            margin-top: 15px;
+            color: var(--color-acento);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
         }
+
+        .aranceles-link:hover { text-decoration: underline; }
+
+        .agenda-seccion { padding: 4rem 5%; text-align: center; }
 
         .calendly-container {
             background: white;
             border-radius: 12px;
             border: 1px solid #e2e8f0;
-            overflow: hidden;
             max-width: 1000px;
             margin: 0 auto;
             min-height: 700px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.05);
         }
 
-        /* Footer y Créditos */
-        footer {
-            background: var(--color-primario);
-            color: white;
-            text-align: center;
-            padding: 2.5rem;
-            font-size: 0.9rem;
-        }
-
-        .footer-credits {
-            margin-top: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            opacity: 0.8;
-        }
+        footer { background: var(--color-primario); color: white; text-align: center; padding: 2.5rem; }
 
         .footer-logo { height: 1.2rem; width: auto; vertical-align: middle; }
 
         .whatsapp-float {
             position: fixed;
-            width: 60px;
-            height: 60px;
-            bottom: 40px;
-            right: 40px;
-            background-color: #25d366;
-            color: #FFF;
-            border-radius: 50px;
-            text-align: center;
-            font-size: 30px;
-            box-shadow: 2px 4px 10px rgba(0,0,0,0.2);
-            z-index: 100;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
+            width: 60px; height: 60px; bottom: 40px; right: 40px;
+            background-color: #25d366; color: #FFF; border-radius: 50px;
+            text-align: center; font-size: 30px; z-index: 100;
+            display: flex; align-items: center; justify-content: center; text-decoration: none;
         }
 
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 2.2rem; }
-            .grid-cards { grid-template-columns: 1fr; }
-        }
+        @media (max-width: 768px) { .hero h1 { font-size: 2.2rem; } }
     </style>
 </head>
 <body>
 
     <nav>
-        <div class="logo">
-            <i class="fa-solid fa-scale-balanced"></i> 
-            ESTUDIO JURÍDICO PAREDES BENEDETTI
-        </div>
+        <div class="logo"><i class="fa-solid fa-scale-balanced"></i> ESTUDIO JURÍDICO PAREDES BENEDETTI</div>
         <div style="display: flex; gap: 20px;">
             <a href="#servicios" style="text-decoration: none; color: var(--color-texto); font-weight: 600;">Servicios</a>
             <a href="#agenda" style="text-decoration: none; color: var(--color-texto); font-weight: 600;">Agendar</a>
@@ -215,10 +154,10 @@
     </nav>
 
     <section class="hero">
-        <div class="hero-text">
+        <div>
             <h1>Seguridad Jurídica para sus Activos Físicos y Digitales</h1>
-            <p>Especialista en Derecho Registral Inmobiliario y Smart Contracts. Uniendo la tradición legal con la tecnología Blockchain.</p>
-            <a href="#agenda" class="btn-primary" style="background-color: var(--color-acento); color: white; padding: 1rem 2rem; text-decoration: none; border-radius: 5px; font-weight: 600; display: inline-block;">Reservar Consulta Online</a>
+            <p>Derecho Registral Inmobiliario & Blockchain.</p>
+            <a href="#agenda" style="background-color: var(--color-acento); color: white; padding: 1rem 2rem; text-decoration: none; border-radius: 5px; font-weight: 600; display: inline-block;">Reservar Consulta Online</a>
         </div>
     </section>
 
@@ -226,36 +165,32 @@
         <h2 style="text-align: center; margin-bottom: 3rem;">Áreas de Práctica</h2>
         <div class="grid-cards">
             <div class="card">
-                <div class="icon-box"><i class="fa-solid fa-landmark"></i></div>
                 <h3>Derecho Inmobiliario</h3>
-                <ul style="padding-left: 1.2rem; list-style-type: square;">
-                    <li>Asesoría integral en derechos reales.</li>
-                    <li>Estudios de títulos y Saneamiento.</li>
-                    <li>Sucesiones y Declaratorias de herederos.</li>
-                    <li>División de condominios y Negociación.</li>
-                </ul>
+                <p>Asesoría en derechos reales, estudios de títulos, sucesiones y usucapión.</p>
             </div>
             <div class="card">
-                <div class="icon-box"><i class="fa-brands fa-ethereum"></i></div>
                 <h3>Blockchain & Web3</h3>
-                <p>Asesoría legal en tokenización de activos reales (RWA), herencias digitales y validación jurídica de Smart Contracts.</p>
+                <p>Tokenización de activos (RWA), Smart Contracts y herencias digitales.</p>
             </div>
+        </div>
+    </section>
+
+    <section class="biografia-seccion">
+        <div class="biografia-content">
+            <h2>Sobre la Dra. Irene Yamila Paredes Benedetti</h2>
+            <p><strong>Especialista en Derecho Registral e Innovación Digital.</strong></p>
+            <p>Con una sólida trayectoria en el asesoramiento sobre derechos reales y saneamiento de títulos, mi enfoque se centra en brindar seguridad jurídica en un mundo en constante cambio. Entiendo que el patrimonio hoy no es solo físico, sino también digital. Por ello, combino la experiencia inmobiliaria tradicional con la especialización en Blockchain y Web3.</p>
         </div>
     </section>
 
     <div class="pagos-container">
         <h3>Consulta Online: $ 50.000</h3>
         <p>Seleccione su horario y complete el pago para confirmar la reserva (Alias: irene.paredes).</p>
-        <div class="pagos-iconos">
-            <div class="pago-item"><i class="fa-solid fa-handshake" style="color: var(--color-mp);"></i> Mercado Pago</div>
-            <div class="pago-item"><i class="fa-solid fa-bolt" style="color: #FF6B00;"></i> Naranja X</div>
-            <div class="pago-item"><i class="fa-solid fa-building-columns"></i> Transferencia</div>
-        </div>
+        <a href="https://www.abogado.org.ar/aranceles.php" target="_blank" class="aranceles-link">Ver Aranceles de Honorarios Actualizados <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
     </div>
 
     <section id="agenda" class="agenda-seccion">
         <h2>Agendar Consulta</h2>
-        <p style="margin-bottom: 2rem;">Vea la disponibilidad en tiempo real y reserve su cita.</p>
         <div class="calendly-container">
             <div class="calendly-inline-widget" data-url="https://calendly.com/iparedesbenedetti/30min?hide_event_type_details=1&hide_gdpr_banner=1" style="min-width:320px;height:700px;"></div>
             <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
@@ -264,15 +199,10 @@
 
     <footer>
         <p>&copy; 2025 Estudio Jurídico Paredes Benedetti. Todos los derechos reservados.</p>
-        <div class="footer-credits">
-            Desarrollado por Flop Design 
-            <img src="unnamed.jpg" alt="Flop Design Logo" class="footer-logo">
-        </div>
+        <div style="opacity: 0.8; margin-top: 10px;">Desarrollado por Flop Design <img src="unnamed.jpg" alt="Logo" class="footer-logo"></div>
     </footer>
 
-    <a href="https://wa.me/5493513060524" class="whatsapp-float" target="_blank">
-        <i class="fa-brands fa-whatsapp"></i>
-    </a>
+    <a href="https://wa.me/5493513060524" class="whatsapp-float" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
 
 </body>
 </html>
