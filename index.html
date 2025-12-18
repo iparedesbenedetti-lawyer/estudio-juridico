@@ -11,7 +11,7 @@
         :root {
             --color-fondo: #F8FAFC;
             --color-primario: #0F172A;
-            --color-acento: #0EA5E9;
+            --color-acento: #0EA5E9; /* Azul claro */
             --color-texto: #334155;
         }
 
@@ -98,23 +98,32 @@
 
         .biografia-content p { font-size: 1.1rem; color: var(--color-texto); }
 
-        .pagos-container {
+        .aranceles-seccion {
             padding: 3rem 5%;
             text-align: center;
             background: white;
             border-top: 1px solid #e2e8f0;
         }
 
-        .aranceles-link {
+        .btn-aranceles {
             display: inline-block;
-            margin-top: 15px;
-            color: var(--color-acento);
+            background-color: #38BDF8; /* Azul claro solicitado */
+            color: #FFFFFF !important; /* Letras blancas */
+            padding: 18px 30px;
+            border-radius: 8px;
             text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
+            font-weight: 700;
+            font-size: 0.95rem;
+            transition: background 0.3s ease;
+            box-shadow: 0 4px 12px rgba(56, 189, 248, 0.3);
+            max-width: 90%;
+            line-height: 1.4;
         }
 
-        .aranceles-link:hover { text-decoration: underline; }
+        .btn-aranceles:hover {
+            background-color: #0EA5E9;
+            transform: scale(1.02);
+        }
 
         .agenda-seccion { padding: 4rem 5%; text-align: center; }
 
@@ -140,7 +149,7 @@
             display: flex; align-items: center; justify-content: center; text-decoration: none;
         }
 
-        @media (max-width: 768px) { .hero h1 { font-size: 2.2rem; } }
+        @media (max-width: 768px) { .hero h1 { font-size: 2.2rem; } .btn-aranceles { font-size: 0.85rem; } }
     </style>
 </head>
 <body>
@@ -183,11 +192,11 @@
         </div>
     </section>
 
-    <div class="pagos-container">
-        <h3>Consulta Online: $ 50.000</h3>
-        <p>Seleccione su horario y complete el pago para confirmar la reserva (Alias: irene.paredes).</p>
-        <a href="https://www.abogado.org.ar/aranceles.php" target="_blank" class="aranceles-link">Ver Aranceles de Honorarios Actualizados <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
-    </div>
+    <section class="aranceles-seccion">
+        <a href="https://www.abogado.org.ar/aranceles.php" target="_blank" class="btn-aranceles">
+            HONORARIOS ACTUALIZADOS FIJADOS POR EL COLEGIO DE ABOGADOS DE CÓRDOBA
+        </a>
+    </section>
 
     <section id="agenda" class="agenda-seccion">
         <h2>Agendar Consulta</h2>
