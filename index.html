@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Estudio Jurídico Paredes Benedetti</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,400;1,500;1,600;1,700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <script>
@@ -25,6 +25,15 @@
         h1, h2, h3 { font-family: 'Cormorant Garamond', serif; }
         .fade-in { animation: fadeIn 0.8s ease-out forwards; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .bio-italic-all p, .bio-italic-all div { font-family: 'Cormorant Garamond', serif; font-style: italic; }
+        
+        /* Ajuste de fondo para legibilidad sobre imagen */
+        .bg-blockchain-overlay {
+            background: linear-gradient(to bottom, rgba(252, 252, 252, 0.92), rgba(252, 252, 252, 0.92)), url('blockchain.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
     </style>
 </head>
 <body class="text-legal-charcoal">
@@ -56,12 +65,12 @@
         </div>
     </section>
 
-    <section class="py-24 bg-white">
-        <div class="max-w-4xl mx-auto px-6 text-center">
-            <h2 class="text-4xl text-legal-navy mb-8 italic text-black">Dra. Irene Yamila Paredes Benedetti</h2>
+    <section class="py-24 bg-blockchain-overlay">
+        <div class="max-w-4xl mx-auto px-6 text-center bio-italic-all">
+            <h2 class="text-4xl text-legal-navy mb-8 text-black italic">Dra. Irene Yamila Paredes Benedetti</h2>
             <div class="h-1 w-20 bg-legal-gold mb-12 mx-auto"></div>
             
-            <div class="font-serif italic text-2xl md:text-3xl text-legal-charcoal leading-relaxed space-y-8">
+            <div class="text-2xl md:text-3xl text-legal-charcoal leading-relaxed space-y-10 drop-shadow-sm">
                 <p>
                     Especialista en Derecho Registral e Innovación Digital. Mi enfoque combina la tradición legal inmobiliaria con la vanguardia de Blockchain y Web3.
                 </p>
@@ -69,7 +78,7 @@
                     Asesoro en saneamiento de títulos, derechos reales y validación de Smart Contracts para la protección de activos en el ecosistema digital actual.
                 </p>
                 
-                <div class="pt-8 space-y-2 not-italic font-serif text-legal-navy/90">
+                <div class="pt-8 space-y-3 text-legal-navy/90 font-semibold">
                     <p>Asesoría integral en lo que refiere a derechos reales.</p>
                     <p>División de condominios.</p>
                     <p>Usucapiones.</p>
@@ -82,7 +91,7 @@
         </div>
     </section>
 
-    <section class="py-16 text-center bg-legal-soft border-y border-gray-100 px-6">
+    <section class="py-16 text-center bg-white border-y border-gray-100 px-6">
         <a href="https://www.abogado.org.ar/aranceles.php" target="_blank" class="inline-block bg-legal-gold text-white px-10 py-5 rounded-full font-bold text-xs tracking-[0.15em] hover:brightness-110 transition-all shadow-lg uppercase w-full md:w-auto">
             Honorarios Actualizados fijados por el Colegio de Abogados de Córdoba
         </a>
