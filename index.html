@@ -161,6 +161,36 @@
             transform: translateY(3px) !important; /* Efecto hundido físico */
             background-color: #f9f9f9 !important;
         }
+
+        /* Estilos para formularios: marcos claros y color de fuente unificado */
+        .form-label { color: var(--muted); }
+        .form-input { width: 100%; border: 1px solid rgba(15,23,42,0.18); padding: 0.85rem 1rem; border-radius: 10px; background: linear-gradient(180deg,#ffffff,#f6f7f8); color: var(--text); font-size: 1.05rem; box-shadow: inset 0 14px 22px rgba(15,23,42,0.06), inset 0 -12px 18px rgba(255,255,255,0.95), 0 6px 18px rgba(2,6,23,0.04); transition: border-color 160ms ease, box-shadow 200ms ease, transform 140ms ease; }
+        .form-input:hover { transform: translateY(-4px); box-shadow: 0 28px 60px rgba(2,6,23,0.16), inset 0 10px 16px rgba(15,23,42,0.06), inset 0 -8px 12px rgba(255,255,255,0.92); }
+        .form-input:focus { outline: none; border-color: var(--gold); box-shadow: 0 18px 40px rgba(197,160,89,0.12), inset 0 8px 12px rgba(15,23,42,0.06), inset 0 -6px 10px rgba(255,255,255,0.9); transform: translateY(-1px); }
+        .form-input:active { transform: translateY(0); box-shadow: inset 0 6px 10px rgba(15,23,42,0.08); }
+        .form-textarea { width:100%; min-height: 140px; border: 1px solid rgba(15,23,42,0.16); padding: 1rem; border-radius: 10px; background: linear-gradient(180deg,#fbfbfb,#f2f4f5); color: var(--text); font-size: 1.05rem; box-shadow: inset 0 14px 22px rgba(15,23,42,0.06), inset 0 -12px 18px rgba(255,255,255,0.95), 0 6px 18px rgba(2,6,23,0.04); transition: border-color 160ms ease, box-shadow 200ms ease, transform 140ms ease; }
+        .form-textarea:hover { transform: translateY(-2px); box-shadow: 0 18px 44px rgba(2,6,23,0.12), inset 0 8px 12px rgba(15,23,42,0.05); }
+        .form-textarea:focus { outline:none; border-color: var(--gold); box-shadow: 0 18px 40px rgba(197,160,89,0.12), inset 0 8px 12px rgba(15,23,42,0.06); }
+        .form-inline { display:flex; gap:0.6rem; align-items:center; justify-content:center; }
+        .form-inline .small-box { display:inline-flex; align-items:center; justify-content:center; min-width:48px; padding:0.6rem 0.75rem; border:1px solid rgba(15,23,42,0.06); border-radius:8px; background:#ffffff; color:var(--text); font-size:1rem; text-align:center; }
+        .form-inline .small-input { min-width:92px; }
+        @media (max-width:767px){ .form-inline{ flex-direction:row; gap:0.5rem; } }
+        /* Modal de confirmación antes de enviar formulario */
+        .modal-overlay { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; background: rgba(0,0,0,0.45); z-index: 1000; padding: 1rem; }
+        .modal-overlay.open { display: flex; }
+        .modal-box { background: #ffffff; color: var(--text); border-radius: 12px; padding: 1.25rem; width: 100%; max-width: 720px; box-shadow: 0 20px 40px rgba(2,6,23,0.18); }
+        .modal-box h3{ margin:0 0 0.5rem 0; }
+        .modal-box .preview { font-size: 0.95rem; color: var(--muted); }
+        .modal-box .preview div{ margin-bottom: 0.5rem; }
+        .modal-actions{ display:flex; gap:0.75rem; justify-content:flex-end; align-items:center; margin-top:0.5rem; }
+        .modal-box .btn-cancel{ background:transparent; border:1px solid rgba(15,23,42,0.06); padding:0.5rem 0.9rem; border-radius:8px; }
+        .dark-mode .modal-box{ background:#071124; color:var(--text); }
+        /* Mensaje de éxito antes de redirigir */
+        .success-overlay { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; background: rgba(0,0,0,0.35); z-index:1100; }
+        .success-overlay.show { display:flex; }
+        .success-box { background:#ffffff; border-radius:12px; padding:1.25rem 1.5rem; box-shadow:0 18px 36px rgba(2,6,23,0.15); max-width:560px; text-align:center; }
+        .success-box h4{ margin:0 0 0.5rem 0; }
+        .dark-mode .success-box{ background:#071124; color:var(--text); }
     </style>
 </head>
 <body class="text-legal-charcoal">
@@ -229,25 +259,57 @@
     <section id="contacto" class="py-24 bg-white border-b border-gray-100 text-black">
         <div class="max-w-xl mx-auto px-6">
             <h2 class="text-4xl text-center mb-16 text-legal-navy italic font-serif">Consulta Previa</h2>
-            <form action="https://formspree.io/f/mkownved" method="POST" class="space-y-12">
+            <form id="consultaForm" action="https://formspree.io/f/mkownved" method="POST" class="space-y-12">
                 <input type="hidden" name="_subject" value="CONSULTA PREVIA">
+                <input type="hidden" name="telefono" id="hidden_telefono" value="">
                 <div class="group">
-                    <label class="block text-xs uppercase tracking-widest text-legal-gold font-bold mb-2 font-sans">Nombre y Apellido</label>
-                    <input type="text" name="nombre" class="w-full border-b border-gray-200 py-3 outline-none focus:border-legal-gold transition-colors bg-transparent text-lg text-black font-sans" required>
+                    <label class="block text-xs uppercase tracking-widest form-label font-bold mb-2 font-sans">Nombre y Apellido</label>
+                    <input type="text" name="nombre" class="form-input text-lg font-sans" required>
                 </div>
                 <div class="group">
-                    <label class="block text-xs uppercase tracking-widest text-legal-gold font-bold mb-2 font-sans">Email</label>
-                    <input type="email" name="email" class="w-full border-b border-gray-200 py-3 outline-none focus:border-legal-gold transition-colors bg-transparent text-lg text-black font-sans" required>
+                    <label class="block text-xs uppercase tracking-widest form-label font-bold mb-2 font-sans">Email</label>
+                    <input type="email" name="email" class="form-input text-lg font-sans" required>
                 </div>
                 <div>
-                    <label class="block text-xs uppercase tracking-widest text-legal-gold font-bold mb-4 font-sans text-black">Motivo de la consulta</label>
-                    <textarea name="mensaje" rows="4" class="w-full border border-gray-100 p-4 rounded-lg bg-gray-50 outline-none focus:border-legal-gold transition-colors text-lg text-black font-sans" required></textarea>
+                    <label class="block text-xs uppercase tracking-widest form-label font-bold mb-4 font-sans">Motivo de la consulta</label>
+                    <textarea name="mensaje" rows="4" class="form-textarea font-sans" required></textarea>
+                </div>
+
+                <div class="group">
+                    <label class="block text-xs uppercase tracking-widest form-label font-bold mb-3 font-sans">Teléfono de referencia</label>
+                    <input type="tel" name="tel_referencia" placeholder="Ingrese número celular" class="form-input" inputmode="tel" pattern="[0-9\s+\-]*" required>
                 </div>
                 
                 <button type="submit" class="btn-interactivo">
                     Enviar Mensaje
                 </button>
             </form>
+            <!-- Modal de confirmación -->
+            <div id="confirmModal" class="modal-overlay" aria-hidden="true" role="dialog" aria-modal="true">
+                <div class="modal-box">
+                    <h3 class="text-lg font-bold">Confirmar envío</h3>
+                    <p class="text-sm mb-3">Revise la información que se enviará:</p>
+                    <div class="preview">
+                        <div><strong>Nombre:</strong> <span id="previewName">—</span></div>
+                        <div><strong>Email:</strong> <span id="previewEmail">—</span></div>
+                        <div><strong>Teléfono:</strong> <span id="previewTel">—</span></div>
+                        <div><strong>Mensaje:</strong>
+                            <div id="previewMsg" style="white-space:pre-wrap; max-height:6rem; overflow:auto; border-radius:6px; padding:0.5rem; background:rgba(0,0,0,0.03); margin-top:0.4rem;">—</div>
+                        </div>
+                    </div>
+                    <div class="modal-actions">
+                        <button id="cancelSubmit" class="btn-cancel">Cancelar</button>
+                        <button id="confirmSubmit" class="btn-interactivo" style="width:auto; padding:0.7rem 1.1rem;">Confirmar y Enviar</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Overlay de éxito (mostrado antes de redirigir) -->
+            <div id="successOverlay" class="success-overlay" aria-hidden="true">
+                <div class="success-box">
+                    <h4 class="font-bold">Mensaje enviado</h4>
+                    <p class="mb-2">Gracias por contactarnos. Será redirigido en unos segundos...</p>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -336,6 +398,88 @@
                         this.click();
                     }
                 });
+            }
+        })();
+        // Mostrar modal de confirmación antes de enviar; copiar teléfono al campo oculto y al mensaje
+        (function(){
+            const form = document.getElementById('consultaForm');
+            const telField = document.querySelector('input[name="tel_referencia"]');
+            const hiddenTel = document.getElementById('hidden_telefono');
+            const mensajeField = document.querySelector('textarea[name="mensaje"]');
+            const nameField = document.querySelector('input[name="nombre"]');
+            const emailField = document.querySelector('input[name="email"]');
+            const modal = document.getElementById('confirmModal');
+            const previewName = document.getElementById('previewName');
+            const previewEmail = document.getElementById('previewEmail');
+            const previewTel = document.getElementById('previewTel');
+            const previewMsg = document.getElementById('previewMsg');
+            const confirmBtn = document.getElementById('confirmSubmit');
+            const cancelBtn = document.getElementById('cancelSubmit');
+
+            function openModal(){ if(modal){ modal.classList.add('open'); modal.setAttribute('aria-hidden','false'); } }
+            function closeModal(){ if(modal){ modal.classList.remove('open'); modal.setAttribute('aria-hidden','true'); } }
+
+            if(form && telField && hiddenTel && modal){
+                form.addEventListener('submit', function(e){
+                    e.preventDefault();
+                    const tel = telField.value.trim();
+                    hiddenTel.value = tel;
+                    if(mensajeField){
+                        const marker = '\n\nTeléfono: ' + tel;
+                        const index = mensajeField.value.indexOf('\n\nTeléfono:');
+                        if(index !== -1){
+                            mensajeField.value = mensajeField.value.substring(0, index) + marker;
+                        } else {
+                            mensajeField.value = mensajeField.value + marker;
+                        }
+                    }
+
+                    if(previewName) previewName.textContent = (nameField && nameField.value.trim()) ? nameField.value.trim() : '—';
+                    if(previewEmail) previewEmail.textContent = (emailField && emailField.value.trim()) ? emailField.value.trim() : '—';
+                    if(previewTel) previewTel.textContent = tel || '—';
+                    if(previewMsg) previewMsg.textContent = (mensajeField && mensajeField.value.trim()) ? mensajeField.value.trim() : '—';
+
+                    openModal();
+                    if(confirmBtn) confirmBtn.focus();
+                });
+
+                if(confirmBtn){
+                    confirmBtn.addEventListener('click', function(){
+                        // Cerrar modal y enviar por fetch para controlar la respuesta
+                        closeModal();
+                        sendFormWithFetch();
+                    });
+                }
+                if(cancelBtn){
+                    cancelBtn.addEventListener('click', function(){ closeModal(); });
+                }
+
+                // Cerrar modal al hacer clic fuera del cuadro
+                modal.addEventListener('click', function(evt){ if(evt.target === modal) closeModal(); });
+                // Cerrar con ESC
+                document.addEventListener('keydown', function(evt){ if(evt.key === 'Escape' && modal.classList.contains('open')) closeModal(); });
+
+                // Envío usando fetch: muestra overlay de éxito antes de redirigir
+                async function sendFormWithFetch(){
+                    const successOverlay = document.getElementById('successOverlay');
+                    try{
+                        if(successOverlay){ successOverlay.classList.add('show'); successOverlay.setAttribute('aria-hidden','false'); }
+                        const fd = new FormData(form);
+                        const resp = await fetch(form.action, { method: (form.method||'POST'), body: fd, headers: { 'Accept': 'application/json' } });
+                        if(resp.ok){
+                            // Mostrar mensaje de éxito y redirigir a gracias.html después de 2s
+                            if(successOverlay){ successOverlay.querySelector('.success-box p').textContent = 'Gracias por contactarnos. Será redirigido en 2 segundos...'; }
+                            setTimeout(()=> { window.location.href = 'gracias.html'; }, 2000);
+                        } else {
+                            // Error: ocultar overlay y mostrar modal con error
+                            if(successOverlay){ successOverlay.classList.remove('show'); successOverlay.setAttribute('aria-hidden','true'); }
+                            alert('Ocurrió un error al enviar el formulario. Por favor inténtelo nuevamente.');
+                        }
+                    }catch(err){
+                        if(successOverlay){ successOverlay.classList.remove('show'); successOverlay.setAttribute('aria-hidden','true'); }
+                        alert('No se pudo enviar el formulario. Verifique su conexión e intente nuevamente.');
+                    }
+                }
             }
         })();
     </script>
