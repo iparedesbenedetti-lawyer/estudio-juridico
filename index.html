@@ -21,7 +21,14 @@
         }
     </script>
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #fcfcfc; }
+        :root{
+            --bg: #fcfcfc;
+            --text: #0f172a;
+            --muted: #334155;
+            --gold: #c5a059;
+        }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg); color: var(--text); transition: background-color 240ms ease, color 240ms ease; }
+        .dark-mode { --bg: #071124; --text: #e6eef8; --muted: #94a3b8; --gold: #c5a059; }
         h1, h2, h3, h4 { font-family: 'Cormorant Garamond', serif; font-style: italic; }
         .fade-in { animation: fadeIn 0.8s ease-out forwards; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
@@ -66,6 +73,37 @@
             font-size: 0.75rem;
         }
 
+        /* Botón pequeño para Modo Oscuro */
+        .dark-toggle {
+            width:44px;
+            height:44px;
+            display:inline-flex;
+            align-items:center;
+            justify-content:center;
+            border-radius:9999px;
+            background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(250,250,250,0.9));
+            border: 1.5px solid var(--gold);
+            color: var(--text);
+            box-shadow: 0 6px 18px rgba(15,23,42,0.08);
+            cursor:pointer;
+            transition: transform 120ms ease, background 160ms ease, color 160ms ease;
+        }
+        .dark-toggle:active{ transform: translateY(2px); }
+        .dark-toggle svg, .dark-toggle i{ font-size:18px; }
+        .dark-toggle{ position:relative; overflow:hidden; }
+        .dark-toggle{ z-index:60; }
+        .dark-toggle .icon{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; transition: transform 200ms ease, opacity 200ms ease; }
+        .dark-toggle .icon-sun{ transform: translateY(-6px); opacity:0; }
+        .dark-toggle .icon-moon{ transform: translateY(0); opacity:1; }
+        .dark-mode .dark-toggle .icon-sun{ transform: translateY(0); opacity:1; }
+        .dark-mode .dark-toggle .icon-moon{ transform: translateY(6px); opacity:0; }
+
+        /* Ajustes móviles: tamaño y visibilidad */
+        @media (max-width: 767px){
+            .dark-toggle{ width:40px; height:40px; border-width:1px; }
+            .dark-toggle .icon i{ font-size:15px; }
+        }
+
         .btn-interactivo:active {
             box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.2) !important;
             transform: translateY(3px) !important; /* Efecto hundido físico */
@@ -86,6 +124,12 @@
             <div class="hidden md:flex gap-8 text-xl fuente-elegante-cursiva text-black">
                 <a href="#contacto" class="hover:text-legal-gold transition uppercase tracking-widest text-sm">Consulta</a>
                 <a href="#agenda" class="hover:text-legal-gold transition uppercase tracking-widest text-sm">Turnos</a>
+            </div>
+            <div class="flex items-center gap-4">
+                <button id="dark-mode-toggle" class="dark-toggle" aria-pressed="false" title="Modo Oscuro" aria-label="Modo Oscuro">
+                    <span class="icon icon-moon"><i class="fa-solid fa-moon"></i></span>
+                    <span class="icon icon-sun"><i class="fa-solid fa-sun"></i></span>
+                </button>
             </div>
         </div>
     </nav>
@@ -175,6 +219,55 @@
     <a href="https://wa.me/5493513060524" class="fixed bottom-10 right-10 bg-[#25D366] text-white w-16 h-16 rounded-full flex items-center justify-center text-3xl shadow-2xl hover:scale-110 transition-all z-[100]" target="_blank">
         <i class="fa-brands fa-whatsapp"></i>
     </a>
+
+    <script>
+        (function(){
+            const toggle = document.getElementById('dark-mode-toggle');
+            const storageKey = 'darkMode';
+            const mq = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)');
+
+            function updateUI(enabled){
+                if(enabled){
+                    document.documentElement.classList.add('dark-mode');
+                    toggle.setAttribute('aria-pressed','true');
+                } else {
+                    document.documentElement.classList.remove('dark-mode');
+                    toggle.setAttribute('aria-pressed','false');
+                }
+            }
+
+            // Init: prefer localStorage, otherwise system preference
+            try{
+                const stored = localStorage.getItem(storageKey);
+                if(stored === 'on' || stored === 'off'){
+                    updateUI(stored === 'on');
+                } else if(mq){
+                    updateUI(mq.matches);
+                } else {
+                    updateUI(false);
+                }
+            }catch(e){
+                if(mq) updateUI(mq.matches); else updateUI(false);
+            }
+
+            // If user hasn't set a preference, follow system changes
+            try{
+                if(mq && typeof mq.addEventListener === 'function'){
+                    mq.addEventListener('change', (e)=>{
+                        if(!localStorage.getItem(storageKey)) updateUI(e.matches);
+                    });
+                }
+            }catch(e){}
+
+            // Toggle on click
+            toggle.addEventListener('click', function(){
+                const isOn = document.documentElement.classList.contains('dark-mode');
+                const next = !isOn;
+                try{ localStorage.setItem(storageKey, next ? 'on' : 'off'); }catch(e){}
+                updateUI(next);
+            });
+        })();
+    </script>
 
 </body>
 </html>
