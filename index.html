@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Estudio Jurídico Paredes Benedetti</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <script>
@@ -30,11 +30,14 @@
 <body class="text-legal-charcoal">
 
     <nav class="bg-white border-b border-gray-100 sticky top-0 z-50">
-        <div class="max-w-6xl mx-auto px-6 h-20 flex justify-between items-center">
-            <div class="text-2xl font-serif font-bold tracking-tight text-legal-navy italic">
-                Paredes Benedetti
+        <div class="max-w-6xl mx-auto px-6 h-24 flex justify-between items-center">
+            <div class="flex items-center gap-3 group">
+                <i class="fa-solid fa-scale-balanced text-legal-gold text-2xl"></i>
+                <div class="text-2xl md:text-3xl font-serif italic font-medium tracking-tight text-black">
+                    Estudio Jurídico Paredes Benedetti
+                </div>
             </div>
-            <div class="flex gap-8 text-sm font-medium tracking-wide uppercase text-legal-charcoal/70">
+            <div class="hidden md:flex gap-8 text-sm font-medium tracking-wide uppercase text-legal-charcoal/70">
                 <a href="#contacto" class="hover:text-legal-gold transition">Consulta</a>
                 <a href="#agenda" class="hover:text-legal-gold transition">Turnos</a>
             </div>
@@ -85,17 +88,15 @@
     </section>
 
     <section class="py-24 bg-legal-soft">
-        <div class="max-w-4xl mx-auto px-6 flex flex-col md:flex-row items-center gap-16">
-            <div class="w-full text-center md:text-left">
-                <h2 class="text-4xl text-legal-navy mb-6">Sobre la Dra. Irene Paredes Benedetti</h2>
-                <div class="h-1 w-20 bg-legal-gold mb-8 mx-auto md:mx-0"></div>
-                <p class="text-xl font-serif italic text-legal-charcoal leading-relaxed mb-6">
-                    Especialista en Derecho Registral e Innovación Digital. Mi enfoque combina la tradición legal inmobiliaria con la vanguardia de Blockchain y Web3.
-                </p>
-                <p class="text-legal-charcoal/70 leading-loose">
-                    Asesoro en saneamiento de títulos, derechos reales y validación de Smart Contracts para la protección de activos en el ecosistema digital actual.
-                </p>
-            </div>
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <h2 class="text-4xl text-legal-navy mb-6 italic">Dra. Irene Yamila Paredes Benedetti</h2>
+            <div class="h-1 w-20 bg-legal-gold mb-8 mx-auto"></div>
+            <p class="text-xl font-serif italic text-legal-charcoal leading-relaxed mb-6">
+                Especialista en Derecho Registral e Innovación Digital. Mi enfoque combina la tradición legal inmobiliaria con la vanguardia de Blockchain y Web3.
+            </p>
+            <p class="text-legal-charcoal/70 leading-loose max-w-2xl mx-auto">
+                Asesoro en saneamiento de títulos, derechos reales y validación de Smart Contracts para la protección de activos en el ecosistema digital actual.
+            </p>
         </div>
     </section>
 
@@ -106,8 +107,8 @@
     </section>
 
     <section id="agenda" class="py-24 bg-white">
-        <div class="max-w-5xl mx-auto px-6">
-            <h2 class="text-4xl text-center mb-16 text-legal-navy">Gestión de Turnos</h2>
+        <div class="max-w-5xl mx-auto px-6 text-center">
+            <h2 class="text-4xl mb-16 text-legal-navy italic text-center">Gestión de Turnos Online</h2>
             <div class="rounded-3xl overflow-hidden border border-gray-100 shadow-2xl">
                 <div class="calendly-inline-widget" data-url="https://calendly.com/iparedesbenedetti/30min" style="min-width:320px;height:700px;"></div>
                 <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
