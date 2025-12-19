@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Estudio Jurídico Paredes Benedetti | Derecho Registral & Blockchain</title>
+    <title>Estudio Jurídico Paredes Benedetti</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <script>
@@ -13,99 +13,118 @@
             theme: {
                 extend: {
                     colors: {
-                        legal: { navy: '#0f172a', gold: '#c5a059', soft: '#f8fafc' }
+                        legal: { navy: '#0f172a', gold: '#c5a059', charcoal: '#334155', soft: '#fcfcfc' }
                     },
                     fontFamily: { serif: ['Cormorant Garamond', 'serif'], sans: ['Inter', 'sans-serif'] }
                 }
             }
         }
     </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #fcfcfc; }
+        h1, h2, h3 { font-family: 'Cormorant Garamond', serif; }
+        .fade-in { animation: fadeIn 0.8s ease-out forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
 </head>
-<body class="bg-legal-soft text-slate-800 font-sans">
+<body class="text-legal-charcoal">
 
-    <nav class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="font-serif text-xl font-bold tracking-widest text-legal-navy uppercase">
-                Estudio Paredes Benedetti
+    <nav class="bg-white border-b border-gray-100 sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-6 h-20 flex justify-between items-center">
+            <div class="text-2xl font-serif font-bold tracking-tight text-legal-navy italic">
+                Paredes Benedetti
             </div>
-            <div class="hidden md:flex gap-8 font-semibold text-sm uppercase tracking-wider">
-                <a href="#contacto" class="hover:text-legal-gold transition">Consultar</a>
+            <div class="flex gap-8 text-sm font-medium tracking-wide uppercase text-legal-charcoal/70">
+                <a href="#contacto" class="hover:text-legal-gold transition">Consulta</a>
                 <a href="#agenda" class="hover:text-legal-gold transition">Turnos</a>
             </div>
         </div>
     </nav>
 
-    <section class="relative h-[80vh] flex items-center justify-center bg-legal-navy text-white overflow-hidden">
-        <div class="absolute inset-0 opacity-40 bg-[url('portada.jpg')] bg-cover bg-center"></div>
-        <div class="relative z-10 text-center px-6 max-w-4xl fade-in">
-            <h1 class="font-serif text-5xl md:text-7xl mb-6 leading-tight text-white">Seguridad Jurídica para sus <span class="italic text-legal-gold">Activos Físicos y Digitales</span></h1>
-            <p class="text-lg md:text-xl font-light mb-10 tracking-wide opacity-90 text-white">Derecho Registral Inmobiliario & Especialista en Tecnología Blockchain.</p>
-            <a href="#contacto" class="bg-legal-gold hover:bg-[#b08d4a] text-white px-10 py-4 rounded-sm transition duration-300 font-bold uppercase tracking-widest text-sm inline-block">Envíe su consulta</a>
+    <section class="bg-legal-soft py-20 md:py-32">
+        <div class="max-w-5xl mx-auto px-6 text-center fade-in">
+            <h1 class="text-5xl md:text-7xl text-legal-navy mb-8 leading-tight">
+                Seguridad Jurídica para sus <br>
+                <span class="italic text-legal-gold">Activos Físicos y Digitales</span>
+            </h1>
+            <p class="text-xl text-legal-charcoal/80 max-w-2xl mx-auto mb-12 font-light tracking-wide">
+                Derecho Registral Inmobiliario & Especialización en Tecnología Blockchain.
+            </p>
+            <a href="#contacto" class="bg-legal-navy text-white px-12 py-5 rounded-full font-semibold hover:bg-legal-charcoal transition-all shadow-xl inline-block uppercase tracking-widest text-xs">
+                Envíe su consulta
+            </a>
         </div>
     </section>
 
     <section id="contacto" class="py-24 bg-white">
-        <div class="max-w-2xl mx-auto px-6">
-            <h2 class="font-serif text-4xl text-center mb-12 text-legal-navy">Consulta Previa</h2>
-            <form action="https://formspree.io/f/mkownved" method="POST" class="space-y-10">
+        <div class="max-w-xl mx-auto px-6">
+            <h2 class="text-4xl text-center mb-16 text-legal-navy italic">Consulta Previa</h2>
+            <form action="https://formspree.io/f/mkownved" method="POST" class="space-y-12">
                 <input type="hidden" name="_subject" value="CONSULTA PREVIA">
                 
-                <div class="relative">
-                    <input type="text" name="nombre" placeholder="Nombre y Apellido" class="w-full border-b-2 border-slate-200 py-3 bg-transparent outline-none focus:border-legal-gold transition-colors text-lg" required>
+                <div class="group">
+                    <label class="block text-xs uppercase tracking-widest text-legal-gold font-bold mb-2">Nombre y Apellido</label>
+                    <input type="text" name="nombre" class="w-full border-b border-gray-200 py-3 outline-none focus:border-legal-gold transition-colors bg-transparent text-lg" required>
                 </div>
                 
-                <div class="relative">
-                    <input type="email" name="email" placeholder="Correo Electrónico" class="w-full border-b-2 border-slate-200 py-3 bg-transparent outline-none focus:border-legal-gold transition-colors text-lg" required>
+                <div class="group">
+                    <label class="block text-xs uppercase tracking-widest text-legal-gold font-bold mb-2">Email</label>
+                    <input type="email" name="email" class="w-full border-b border-gray-200 py-3 outline-none focus:border-legal-gold transition-colors bg-transparent text-lg" required>
                 </div>
                 
                 <div>
-                    <label class="block text-sm font-bold uppercase tracking-widest mb-4 opacity-60">Motivo de la consulta</label>
-                    <textarea name="mensaje" rows="4" class="w-full border-2 border-slate-100 p-4 rounded-sm outline-none focus:border-legal-gold transition-colors text-lg" required></textarea>
+                    <label class="block text-xs uppercase tracking-widest text-legal-gold font-bold mb-4">Motivo de la consulta</label>
+                    <textarea name="mensaje" rows="4" class="w-full border border-gray-100 p-4 rounded-lg bg-gray-50 outline-none focus:border-legal-gold transition-colors text-lg" required></textarea>
                 </div>
                 
-                <button type="submit" class="w-full bg-legal-navy text-white py-5 font-bold uppercase tracking-[0.2em] hover:bg-slate-800 transition shadow-lg">Enviar Mensaje</button>
+                <button type="submit" class="w-full bg-legal-gold text-white py-5 rounded-full font-bold uppercase tracking-[0.2em] text-xs hover:brightness-110 transition shadow-lg">
+                    Enviar Mensaje
+                </button>
             </form>
         </div>
     </section>
 
-    <section class="py-24 bg-slate-50 border-y border-slate-200">
-        <div class="max-w-3xl mx-auto px-6 text-center">
-            <h2 class="font-serif text-4xl mb-6 text-legal-navy uppercase tracking-wide">Dra. Irene Yamila Paredes Benedetti</h2>
-            <p class="text-legal-gold font-bold uppercase tracking-widest mb-8 text-sm">Especialista en Derecho Registral e Innovación Digital</p>
-            <div class="h-1 w-24 bg-legal-gold mx-auto mb-8"></div>
-            <p class="text-xl font-serif italic text-slate-600 leading-relaxed mb-6">
-                "Con una sólida trayectoria en el asesoramiento sobre derechos reales y saneamiento de títulos, mi enfoque se centra en brindar seguridad jurídica en un mundo en constante cambio. Entiendo que el patrimonio hoy no es solo físico, sino también digital."
-            </p>
-            <p class="text-slate-500 leading-loose">
-                Combino mi experiencia en el ámbito inmobiliario tradicional con la especialización en Blockchain y Web3, asesorando en la validación de Smart Contracts y la tokenización de activos reales (RWA).
-            </p>
+    <section class="py-24 bg-legal-soft">
+        <div class="max-w-4xl mx-auto px-6 flex flex-col md:flex-row items-center gap-16">
+            <div class="w-full text-center md:text-left">
+                <h2 class="text-4xl text-legal-navy mb-6">Sobre la Dra. Irene Paredes Benedetti</h2>
+                <div class="h-1 w-20 bg-legal-gold mb-8 mx-auto md:mx-0"></div>
+                <p class="text-xl font-serif italic text-legal-charcoal leading-relaxed mb-6">
+                    Especialista en Derecho Registral e Innovación Digital. Mi enfoque combina la tradición legal inmobiliaria con la vanguardia de Blockchain y Web3.
+                </p>
+                <p class="text-legal-charcoal/70 leading-loose">
+                    Asesoro en saneamiento de títulos, derechos reales y validación de Smart Contracts para la protección de activos en el ecosistema digital actual.
+                </p>
+            </div>
         </div>
     </section>
 
-    <section class="py-16 text-center bg-white">
-        <a href="https://www.abogado.org.ar/aranceles.php" target="_blank" class="inline-block bg-[#38BDF8] text-white px-8 py-5 rounded-md font-bold text-sm tracking-widest hover:brightness-110 shadow-xl transition-all uppercase">
+    <section class="py-16 text-center bg-white border-y border-gray-50">
+        <a href="https://www.abogado.org.ar/aranceles.php" target="_blank" class="inline-block bg-[#38BDF8] text-white px-10 py-5 rounded-full font-bold text-xs tracking-[0.15em] hover:shadow-2xl transition-all uppercase">
             Honorarios Actualizados fijados por el Colegio de Abogados de Córdoba
         </a>
     </section>
 
-    <section id="agenda" class="py-24 bg-legal-soft">
+    <section id="agenda" class="py-24 bg-white">
         <div class="max-w-5xl mx-auto px-6">
-            <h2 class="font-serif text-4xl text-center mb-16 text-legal-navy">Agenda de Turnos Online</h2>
-            <div class="bg-white rounded-sm shadow-2xl overflow-hidden border border-slate-100 min-h-[700px]">
+            <h2 class="text-4xl text-center mb-16 text-legal-navy">Gestión de Turnos</h2>
+            <div class="rounded-3xl overflow-hidden border border-gray-100 shadow-2xl">
                 <div class="calendly-inline-widget" data-url="https://calendly.com/iparedesbenedetti/30min" style="min-width:320px;height:700px;"></div>
                 <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
             </div>
         </div>
     </section>
 
-    <footer class="bg-legal-navy py-12 text-center text-white/60 text-sm tracking-widest uppercase">
-        <p>&copy; 2025 Estudio Jurídico Paredes Benedetti.</p>
-        <div class="mt-4 flex items-center justify-center gap-2">
-            Desarrollado por Flop Design <img src="unnamed.jpg" class="h-4 opacity-50">
+    <footer class="bg-legal-navy py-16 text-center">
+        <p class="text-white/40 text-xs tracking-widest uppercase">
+            &copy; 2025 Estudio Jurídico Paredes Benedetti.
+        </p>
+        <div class="mt-4 text-white/20 text-[10px] tracking-[0.3em] uppercase">
+            Desarrollado por Flop Design <img src="unnamed.jpg" class="h-3 inline opacity-20 grayscale">
         </div>
     </footer>
 
-    <a href="https://wa.me/5493513060524" class="fixed bottom-8 right-8 bg-[#25D366] text-white w-16 h-16 rounded-full flex items-center justify-center text-3xl shadow-2xl hover:scale-110 transition z-[100]" target="_blank">
+    <a href="https://wa.me/5493513060524" class="fixed bottom-10 right-10 bg-[#25D366] text-white w-16 h-16 rounded-full flex items-center justify-center text-3xl shadow-2xl hover:scale-110 transition-all z-[100]" target="_blank">
         <i class="fa-brands fa-whatsapp"></i>
     </a>
 
