@@ -25,15 +25,30 @@
         h1, h2, h3 { font-family: 'Cormorant Garamond', serif; }
         .fade-in { animation: fadeIn 0.8s ease-out forwards; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .bio-italic-all p, .bio-italic-all div { font-family: 'Cormorant Garamond', serif; font-style: italic; }
         
-        /* Ajuste de fondo para legibilidad sobre imagen */
-        .bg-blockchain-overlay {
-            background: linear-gradient(to bottom, rgba(252, 252, 252, 0.92), rgba(252, 252, 252, 0.92)), url('blockchain.jpg');
+        /* Forzar cursiva y Cormorant en toda la biografía */
+        .bio-italic-all p, .bio-italic-all div { 
+            font-family: 'Cormorant Garamond', serif !important; 
+            font-style: italic !important; 
+        }
+        
+        /* Ajuste de fondo para legibilidad sobre imagen blockchain.png */
+        .bg-blockchain-section {
+            position: relative;
+            background-image: url('blockchain.png');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
         }
+        /* Capa blanca traslúcida para asegurar legibilidad */
+        .bg-blockchain-section::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(252, 252, 252, 0.90); /* 90% blanco para que el texto resalte */
+            z-index: 1;
+        }
+        .content-relative { position: relative; z-index: 2; }
     </style>
 </head>
 <body class="text-legal-charcoal">
@@ -65,12 +80,12 @@
         </div>
     </section>
 
-    <section class="py-24 bg-blockchain-overlay">
-        <div class="max-w-4xl mx-auto px-6 text-center bio-italic-all">
+    <section class="py-24 bg-blockchain-section">
+        <div class="max-w-4xl mx-auto px-6 text-center bio-italic-all content-relative">
             <h2 class="text-4xl text-legal-navy mb-8 text-black italic">Dra. Irene Yamila Paredes Benedetti</h2>
             <div class="h-1 w-20 bg-legal-gold mb-12 mx-auto"></div>
             
-            <div class="text-2xl md:text-3xl text-legal-charcoal leading-relaxed space-y-10 drop-shadow-sm">
+            <div class="text-2xl md:text-3xl text-legal-charcoal leading-relaxed space-y-10">
                 <p>
                     Especialista en Derecho Registral e Innovación Digital. Mi enfoque combina la tradición legal inmobiliaria con la vanguardia de Blockchain y Web3.
                 </p>
@@ -78,7 +93,7 @@
                     Asesoro en saneamiento de títulos, derechos reales y validación de Smart Contracts para la protección de activos en el ecosistema digital actual.
                 </p>
                 
-                <div class="pt-8 space-y-3 text-legal-navy/90 font-semibold">
+                <div class="pt-8 space-y-3 text-legal-navy/90 font-medium">
                     <p>Asesoría integral en lo que refiere a derechos reales.</p>
                     <p>División de condominios.</p>
                     <p>Usucapiones.</p>
@@ -102,22 +117,18 @@
             <h2 class="text-4xl text-center mb-16 text-legal-navy italic text-black">Consulta Previa</h2>
             <form action="https://formspree.io/f/mkownved" method="POST" class="space-y-12">
                 <input type="hidden" name="_subject" value="CONSULTA PREVIA">
-                
                 <div class="group">
                     <label class="block text-xs uppercase tracking-widest text-legal-gold font-bold mb-2">Nombre y Apellido</label>
                     <input type="text" name="nombre" class="w-full border-b border-gray-200 py-3 outline-none focus:border-legal-gold transition-colors bg-transparent text-lg" required>
                 </div>
-                
                 <div class="group">
                     <label class="block text-xs uppercase tracking-widest text-legal-gold font-bold mb-2">Email</label>
                     <input type="email" name="email" class="w-full border-b border-gray-200 py-3 outline-none focus:border-legal-gold transition-colors bg-transparent text-lg" required>
                 </div>
-                
                 <div>
                     <label class="block text-xs uppercase tracking-widest text-legal-gold font-bold mb-4">Motivo de la consulta</label>
                     <textarea name="mensaje" rows="4" class="w-full border border-gray-100 p-4 rounded-lg bg-gray-50 outline-none focus:border-legal-gold transition-colors text-lg" required></textarea>
                 </div>
-                
                 <button type="submit" class="w-full bg-legal-navy text-white py-5 rounded-full font-bold uppercase tracking-[0.2em] text-xs hover:bg-legal-charcoal transition shadow-lg">
                     Enviar Mensaje
                 </button>
@@ -127,7 +138,7 @@
 
     <section id="agenda" class="py-24 bg-legal-soft">
         <div class="max-w-5xl mx-auto px-6">
-            <h2 class="text-4xl text-center mb-16 text-legal-navy italic text-black">Gestión de Turnos Online</h2>
+            <h2 class="text-4xl text-center mb-16 text-legal-navy italic text-black font-serif">Gestión de Turnos Online</h2>
             <div class="rounded-3xl overflow-hidden border border-gray-100 shadow-2xl bg-white">
                 <div class="calendly-inline-widget" data-url="https://calendly.com/iparedesbenedetti/30min" style="min-width:320px;height:700px;"></div>
                 <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
