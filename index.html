@@ -469,7 +469,20 @@
                         if(resp.ok){
                             // Mostrar mensaje de éxito y redirigir a gracias.html después de 2s
                             if(successOverlay){ successOverlay.querySelector('.success-box p').textContent = 'Gracias por contactarnos. Será redirigido en 2 segundos...'; }
-                            setTimeout(()=> { window.location.href = 'gracias.html'; }, 2000);
+                            // Construir URL relativa correcta para la página de agradecimiento
+                            try{
+                                const thanksUrl = new URL('gracias.html', window.location.href).href;
+                                console.log('Abriendo en nueva pestaña:', thanksUrl);
+                                if(successOverlay){ successOverlay.querySelector('.success-box p').textContent = 'Gracias. Se abrirá una pestaña con la confirmación...'; }
+                                window.open(thanksUrl, '_blank');
+                                setTimeout(()=> { if(successOverlay){ successOverlay.classList.remove('show'); successOverlay.setAttribute('aria-hidden','true'); } }, 1500);
+                            }catch(e){
+                                // Fallback simple
+                                console.log('Error construyendo URL de redirección, abriendo ./gracias.html en nueva pestaña.');
+                                if(successOverlay){ successOverlay.querySelector('.success-box p').textContent = 'Gracias. Se abrirá una pestaña con la confirmación...'; }
+                                window.open('./gracias.html', '_blank');
+                                setTimeout(()=> { if(successOverlay){ successOverlay.classList.remove('show'); successOverlay.setAttribute('aria-hidden','true'); } }, 1500);
+                            }
                         } else {
                             // Error: ocultar overlay y mostrar modal con error
                             if(successOverlay){ successOverlay.classList.remove('show'); successOverlay.setAttribute('aria-hidden','true'); }
