@@ -1,288 +1,358 @@
 <!DOCTYPE html>
-<html lang="es" class="scroll-smooth">
+<html lang="es" class="scroll-smooth" x-data="{ darkMode: localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches) }" :class="{ 'dark': darkMode }" x-init="$watch('darkMode', val => localStorage.setItem('theme', val ? 'dark' : 'light'))">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Estudio Jurídico Paredes Benedetti</title>
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Estudio Jurídico Paredes Benedetti | Innovación Legal</title>
+    <meta name="description" content="Especialistas en Derecho Registral, Inmobiliario y Tecnología Blockchain en Córdoba. Seguridad jurídica para activos físicos y digitales." />
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-    
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- App Logic -->
     <script>
-        tailwind.config = {
-            darkMode: 'class', // Habilitamos el modo oscuro basado en clase
-            theme: {
-                extend: {
-                    colors: {
-                        legal: { navy: '#0f172a', gold: '#c5a059', charcoal: '#334155', soft: '#fcfcfc', darkbg: '#071124' }
-                    },
-                    fontFamily: { 
-                        serif: ['Cormorant Garamond', 'serif'], 
-                        sans: ['Inter', 'sans-serif'] 
+        function contactForm() {
+            return {
+                activeTab: 'message',
+                status: 'idle',
+                formData: {
+                    name: '',
+                    email: '',
+                    phone: '',
+                    message: ''
+                },
+                async submit() {
+                    this.status = 'sending';
+                    try {
+                        const response = await fetch("https://formsubmit.co/ajax/iparedesbenedetti@gmail.com", {
+                            method: "POST",
+                            headers: { 
+                                'Content-Type': 'application/json',
+                                'Accept': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                _subject: `Web Consulta: ${this.formData.name}`,
+                                nombre: this.formData.name,
+                                email: this.formData.email,
+                                telefono: this.formData.phone,
+                                mensaje: this.formData.message,
+                                _template: "basic"
+                            })
+                        });
+
+                        if (response.ok) {
+                            this.status = 'success';
+                            this.formData = { name: '', email: '', phone: '', message: '' };
+                            document.getElementById('contacto').scrollIntoView({ behavior: 'smooth' });
+                            setTimeout(() => { this.status = 'idle'; }, 10000);
+                        } else {
+                            throw new Error("Envío fallido");
+                        }
+                    } catch (error) {
+                        console.error("Error:", error);
+                        window.location.href = `mailto:iparedesbenedetti@gmail.com?subject=Consulta Web&body=Nombre: ${this.formData.name}%0D%0AEmail: ${this.formData.email}%0D%0AMensaje: ${this.formData.message}`;
+                        this.status = 'idle';
                     }
                 }
             }
         }
     </script>
 
-    <style>
-        /* Variables CSS para transiciones suaves */
-        :root {
-            --bg-body: #fcfcfc;
-            --text-main: #0f172a;
-            --muted: #334155;
-            --gold: #c5a059;
-            --card-bg: #ffffff;
-            --border-color: #e2e8f0;
-        }
-
-        body { 
-            font-family: 'Inter', sans-serif; 
-            background-color: var(--bg-body); 
-            color: var(--text-main); 
-            transition: background-color 0.3s ease, color 0.3s ease; 
-            overflow-x: hidden;
-        }
-
-        /* Configuración Modo Oscuro */
-        .dark-mode {
-            --bg-body: #071124;
-            --text-main: #e6eef8;
-            --muted: #94a3b8;
-            --gold: #c5a059;
-            --card-bg: #0f172a; /* Un poco más claro que el fondo para contraste */
-            --border-color: #1e293b;
-        }
-
-        h1, h2, h3, h4 { font-family: 'Cormorant Garamond', serif; }
-        
-        .fuente-elegante-cursiva { 
-            font-family: 'Cormorant Garamond', 'serif' !important; 
-            font-style: italic !important;
-            font-weight: 500 !important;
-        }
-
-        /* Sección Blockchain con Fondo */
-        .bg-blockchain-section {
-            position: relative;
-            /* Imagen de placeholder de alta calidad */
-            background-image: url('https://picsum.photos/seed/legaltech/1920/1080');
-            background-size: cover;
-            background-position: center;
-            /* Fijo solo en desktop para evitar problemas en iOS/Android */
-            background-attachment: scroll; 
-        }
-        
-        @media (min-width: 768px) {
-            .bg-blockchain-section {
-                background-attachment: fixed;
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'legal-blue': '#0f172a',
+                        'legal-gold': '#926a2d',
+                        'legal-gold-light': '#b38b4d',
+                        'legal-bg': '#f8fafc',
+                        'legal-dark-bg': '#0B1120',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.6s ease-out forwards',
+                        'slide-up': 'slideUp 0.8s ease-out forwards',
+                    },
+                    keyframes: {
+                        fadeIn: { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
+                        slideUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
             }
         }
+    </script>
 
-        /* Overlay para legibilidad */
-        .bg-blockchain-section::before {
-            content: "";
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(255, 255, 255, 0.85); 
-            z-index: 1;
-            transition: background 0.3s ease;
+    <!-- Alpine.js -->
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js" defer></script>
+    
+    <style>
+        [x-cloak] { display: none !important; }
+        .glass-effect {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
         }
-
-        .dark-mode .bg-blockchain-section::before {
-            background: rgba(7, 17, 36, 0.85); 
-        }
-
-        .content-relative { position: relative; z-index: 2; }
-
-        /* Botón Toggle Dark Mode */
-        .dark-toggle {
-            width: 40px; height: 40px;
-            display:inline-flex; align-items:center; justify-content:center;
-            border-radius:9999px;
-            background: var(--card-bg);
-            border: 1.5px solid var(--gold);
-            color: var(--text-main);
-            box-shadow: 0 4px 12px rgba(15,23,42,0.1);
-            cursor:pointer;
-            position:relative; overflow:hidden; z-index:60;
-            transition: all 0.3s ease;
-        }
-        .dark-mode .dark-toggle {
-            background: #1e293b;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-        }
-
-        .dark-toggle .icon { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1), opacity 0.3s ease; }
-        .dark-toggle .icon-sun { transform: translateY(-100%); opacity:0; color: #fbbf24; }
-        .dark-toggle .icon-moon { transform: translateY(0); opacity:1; }
-        
-        .dark-mode .dark-toggle .icon-sun { transform: translateY(0); opacity:1; }
-        .dark-mode .dark-toggle .icon-moon { transform: translateY(100%); opacity:0; }
-
-        /* Utilidades de Color para Modo Oscuro (Integración con Tailwind) */
-        .dark-mode .bg-white { background-color: var(--card-bg) !important; }
-        .dark-mode .text-black, .dark-mode .text-legal-navy { color: var(--text-main) !important; }
-        .dark-mode .text-legal-charcoal { color: var(--muted) !important; }
-        .dark-mode .border-gray-100 { border-color: var(--border-color) !important; }
-        .dark-mode .bg-legal-soft { background-color: var(--bg-body) !important; }
-
-        /* Ajustes del Calendly Widget */
-        .calendly-container {
-            width: 100%;
-            min-height: 700px;
+        /* Fix Calendly responsiveness on small screens */
+        @media (max-width: 640px) {
+            .calendly-inline-widget {
+                height: 450px !important;
+            }
         }
     </style>
 </head>
+<body class="bg-legal-bg text-legal-blue dark:bg-legal-dark-bg dark:text-gray-200 transition-colors duration-300 font-sans overflow-x-hidden">
 
-<body class="text-legal-charcoal antialiased selection:bg-legal-gold selection:text-white">
-
-    <!-- Navegación -->
-    <nav class="bg-[var(--card-bg)] border-b border-[var(--border-color)] sticky top-0 z-50 transition-colors duration-300">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 md:h-20 flex justify-between items-center">
-            
+    <!-- Header -->
+    <header 
+        x-data="{ isScrolled: false, mobileMenuOpen: false }" 
+        @scroll.window="isScrolled = (window.pageYOffset > 50)"
+        class="fixed top-0 w-full z-50 transition-all duration-500"
+        :class="isScrolled ? 'bg-white/90 dark:bg-legal-blue/95 glass-effect shadow-lg py-2 md:py-3' : 'bg-transparent py-4 md:py-6'"
+    >
+        <div class="container mx-auto px-4 sm:px-6 flex justify-between items-center">
             <!-- Logo -->
-            <div class="flex items-center gap-3">
-                <i class="fa-solid fa-scale-balanced text-legal-gold text-xl md:text-2xl"></i>
-                <div class="text-base md:text-2xl fuente-elegante-cursiva text-[var(--text-main)] leading-tight">
-                    Estudio Jurídico <span class="hidden sm:inline">Paredes Benedetti</span>
-                    <span class="sm:hidden inline">PB</span>
+            <a href="#hero" class="flex items-center gap-2 md:gap-3 group shrink-0">
+                <div class="w-8 h-8 md:w-10 md:h-10 bg-legal-gold rounded-sm flex items-center justify-center text-white font-serif font-bold text-lg md:text-xl shadow-lg transition-colors duration-300">
+                    PB
                 </div>
-            </div>
+                <div>
+                    <h1 class="font-serif text-lg md:text-xl font-bold leading-none text-legal-blue dark:text-white group-hover:text-legal-gold transition-colors duration-300">
+                        Paredes Benedetti
+                    </h1>
+                    <p class="text-[8px] md:text-[10px] uppercase tracking-[0.2em] text-legal-gold font-bold mt-0.5 md:mt-1">Estudio Jurídico</p>
+                </div>
+            </a>
 
-            <!-- Acciones Nav -->
-            <div class="flex items-center gap-4 md:gap-6">
-                <!-- Enlace Escritorio -->
-                <a href="#agenda" class="hidden md:block font-sans text-xs font-bold uppercase tracking-widest hover:text-legal-gold transition-colors text-[var(--text-main)]">
-                    Turnos Online
-                </a>
-                
-                <!-- Botón Dark Mode -->
-                <button id="dark-mode-toggle" class="dark-toggle" aria-label="Alternar Modo Oscuro">
-                    <span class="icon icon-moon"><i class="fa-solid fa-moon"></i></span>
-                    <span class="icon icon-sun"><i class="fa-solid fa-sun"></i></span>
+            <!-- Desktop Nav -->
+            <nav class="hidden lg:flex items-center space-x-8 xl:space-x-10">
+                <template x-for="item in ['Inicio', 'Servicios', 'Nosotros', 'Contacto']">
+                    <a :href="'#' + item.toLowerCase()" class="text-xs uppercase tracking-widest font-bold text-legal-blue/70 dark:text-gray-400 hover:text-legal-gold dark:hover:text-legal-gold transition-colors" x-text="item"></a>
+                </template>
+                <button @click="darkMode = !darkMode" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-legal-blue dark:text-legal-gold" aria-label="Cambiar tema">
+                    <i x-show="!darkMode" data-lucide="moon" class="w-5 h-5"></i>
+                    <i x-show="darkMode" data-lucide="sun" class="w-5 h-5" x-cloak></i>
+                </button>
+            </nav>
+
+            <!-- Mobile Buttons -->
+            <div class="lg:hidden flex items-center gap-2">
+                <button @click="darkMode = !darkMode" class="text-legal-blue dark:text-legal-gold p-2" aria-label="Cambiar tema">
+                    <i x-show="!darkMode" data-lucide="moon" class="w-5 h-5"></i>
+                    <i x-show="darkMode" data-lucide="sun" class="w-5 h-5" x-cloak></i>
+                </button>
+                <button @click="mobileMenuOpen = !mobileMenuOpen" class="text-legal-blue dark:text-white p-2" aria-label="Menu">
+                    <i x-show="!mobileMenuOpen" data-lucide="menu" class="w-6 h-6"></i>
+                    <i x-show="mobileMenuOpen" data-lucide="x" class="w-6 h-6" x-cloak></i>
                 </button>
             </div>
         </div>
-    </nav>
 
-    <!-- Hero Section -->
-    <header class="bg-legal-soft py-16 md:py-28 transition-colors duration-300">
-        <div class="max-w-5xl mx-auto px-6 text-center">
-            <h1 class="text-3xl sm:text-5xl md:text-7xl text-[var(--text-main)] mb-6 md:mb-10 leading-[1.1] md:leading-tight italic">
-                Seguridad Jurídica para sus 
-                <span class="text-legal-gold block mt-2">Activos Físicos y Digitales</span>
-            </h1>
-            <p class="text-base md:text-xl text-[var(--muted)] max-w-2xl mx-auto font-light tracking-wide px-4 mb-10">
-                Derecho Registral Inmobiliario & <br class="md:hidden">Especialización en Tecnología Blockchain.
-            </p>
-
-            <!-- Botón CTA Móvil (Visible solo en móvil ya que el nav link está oculto) -->
-            <div class="md:hidden">
-                <a href="#agenda" class="inline-block bg-legal-gold text-white px-8 py-3 rounded-full font-bold text-xs tracking-widest shadow-lg hover:brightness-110 transition-all w-full max-w-xs">
-                    Agendar Turno
-                </a>
-            </div>
+        <!-- Mobile Menu -->
+        <div 
+            x-show="mobileMenuOpen" 
+            x-transition:enter="transition ease-out duration-200"
+            x-transition:enter-start="opacity-0 -translate-y-4"
+            x-transition:enter-end="opacity-100 translate-y-0"
+            x-transition:leave="transition ease-in duration-150"
+            x-transition:leave-start="opacity-100 translate-y-0"
+            x-transition:leave-end="opacity-0 -translate-y-4"
+            @click.away="mobileMenuOpen = false"
+            class="lg:hidden absolute top-full left-0 w-full bg-white dark:bg-legal-blue border-b border-gray-100 dark:border-gray-800 shadow-2xl py-6 px-6 flex flex-col space-y-4"
+            x-cloak
+        >
+            <a href="#hero" @click="mobileMenuOpen = false" class="text-lg font-serif font-bold text-legal-blue dark:text-white border-b border-gray-50 dark:border-gray-800 pb-2">Inicio</a>
+            <a href="#servicios" @click="mobileMenuOpen = false" class="text-lg font-serif font-bold text-legal-blue dark:text-white border-b border-gray-50 dark:border-gray-800 pb-2">Servicios</a>
+            <a href="#nosotros" @click="mobileMenuOpen = false" class="text-lg font-serif font-bold text-legal-blue dark:text-white border-b border-gray-50 dark:border-gray-800 pb-2">El Estudio</a>
+            <a href="#contacto" @click="mobileMenuOpen = false" class="text-lg font-serif font-bold text-legal-blue dark:text-white pb-2">Contacto</a>
         </div>
     </header>
 
-    <!-- Blockchain / Servicios Section -->
-    <section class="py-20 md:py-24 bg-blockchain-section text-[var(--text-main)]">
-        <div class="max-w-4xl mx-auto px-6 text-center content-relative">
-            <h2 class="text-2xl md:text-3xl fuente-elegante-cursiva mb-6">Experiencia & Innovación</h2>
-            <p class="mb-8 text-sm md:text-base leading-relaxed max-w-2xl mx-auto">
-                Especialista en Derecho Registral e Innovación Digital. Mi enfoque combina la tradición legal inmobiliaria con la vanguardia de Blockchain y Web3 para garantizar protección integral.
-            </p>
-            
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4 text-base md:text-lg font-sans pt-6 max-w-3xl mx-auto text-left sm:text-center bg-[var(--card-bg)]/80 backdrop-blur-sm p-6 md:p-8 rounded-xl shadow-sm border border-[var(--border-color)]">
-                <p class="flex items-center gap-2 sm:justify-center"><span class="text-legal-gold text-lg">•</span> Asesoría en Derechos Reales</p>
-                <p class="flex items-center gap-2 sm:justify-center"><span class="text-legal-gold text-lg">•</span> División de Condominios</p>
-                <p class="flex items-center gap-2 sm:justify-center"><span class="text-legal-gold text-lg">•</span> Usucapiones</p>
-                <p class="flex items-center gap-2 sm:justify-center"><span class="text-legal-gold text-lg">•</span> Sucesiones</p>
-                <p class="flex items-center gap-2 sm:justify-center"><span class="text-legal-gold text-lg">•</span> Declaratorias de herederos</p>
-                <p class="flex items-center gap-2 sm:justify-center"><span class="text-legal-gold text-lg">•</span> Negociación y Mediación</p>
+    <main>
+        <!-- Hero Section -->
+        <section id="hero" class="relative w-full min-h-screen flex items-center py-20 overflow-hidden text-center lg:text-left">
+            <div class="absolute inset-0 z-0">
+                <div class="absolute inset-0 bg-gradient-to-br from-legal-bg via-legal-bg to-white dark:from-legal-dark-bg dark:via-legal-dark-bg dark:to-legal-blue/10"></div>
             </div>
-        </div>
-    </section>
 
-    <!-- Aranceles Section -->
-    <section class="py-12 text-center bg-[var(--card-bg)] border-y border-[var(--border-color)] px-6 transition-colors duration-300">
-        <div class="max-w-4xl mx-auto">
-            <a href="https://www.abogado.org.ar/aranceles.php" target="_blank" rel="noopener noreferrer" 
-               class="inline-flex items-center justify-center gap-2 bg-legal-gold text-white px-8 py-4 rounded-full font-bold text-[10px] md:text-xs tracking-widest hover:brightness-110 transition-all shadow-lg uppercase w-full md:w-auto group">
-                Honorarios Colegio de Abogados de Córdoba
-                <i class="fa-solid fa-arrow-up-right-from-square text-xs opacity-70 group-hover:opacity-100 transition-opacity"></i>
-            </a>
-        </div>
-    </section>
-
-    <!-- Agenda / Calendly Section -->
-    <section id="agenda" class="py-20 md:py-24 bg-legal-soft transition-colors duration-300">
-        <div class="max-w-5xl mx-auto px-4 md:px-6">
-            <h2 class="text-3xl md:text-4xl text-center mb-10 md:mb-16 text-[var(--text-main)] italic">Gestión de Turnos Online</h2>
-            
-            <div class="rounded-2xl overflow-hidden border border-[var(--border-color)] shadow-2xl bg-[var(--card-bg)]">
-                <div class="calendly-inline-widget calendly-container" data-url="https://calendly.com/iparedesbenedetti/30min"></div>
-                <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+            <div class="container mx-auto px-4 sm:px-6 relative z-10">
+                <div class="max-w-4xl mx-auto lg:mx-0 space-y-6 md:space-y-8 animate-slide-up">
+                    <div class="inline-flex items-center gap-2 px-3 md:px-4 py-1.5 border border-legal-gold/30 bg-legal-gold/5 text-legal-gold uppercase tracking-[0.2em] text-[9px] md:text-[10px] font-bold rounded-full mx-auto lg:mx-0">
+                        Derecho 4.0 & Inmobiliario
+                    </div>
+                    
+                    <h2 class="font-serif text-4xl sm:text-5xl md:text-6xl xl:text-7xl font-bold text-legal-blue dark:text-white leading-[1.15] md:leading-tight">
+                        Seguridad Jurídica en la <br class="hidden sm:block"><span class="text-legal-gold italic">Era Digital</span>.
+                    </h2>
+                    
+                    <p class="text-base md:text-lg xl:text-xl text-gray-600 dark:text-gray-400 font-light leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                        Expertos en Derecho Registral Inmobiliario con especialización en <span class="font-semibold text-legal-blue dark:text-gray-200">Activos Digitales y Blockchain</span>. Protegemos lo que usted construye.
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4 md:gap-5 justify-center lg:justify-start pt-4">
+                        <a href="#contacto" class="px-8 md:px-10 py-3.5 md:py-4 bg-legal-gold hover:bg-legal-gold-light text-white font-bold rounded-sm shadow-xl transition-all transform hover:-translate-y-1 text-xs md:text-sm tracking-widest text-center">
+                            AGENDAR CONSULTA
+                        </a>
+                        <a href="#servicios" class="px-8 md:px-10 py-3.5 md:py-4 border border-legal-blue/20 dark:border-gray-700 hover:bg-legal-blue hover:text-white dark:hover:bg-gray-800 text-legal-blue dark:text-gray-300 font-bold rounded-sm transition-all text-xs md:text-sm tracking-widest text-center">
+                            NUESTRAS ÁREAS
+                        </a>
+                    </div>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
+
+        <!-- Stats -->
+        <section class="py-10 md:py-12 bg-legal-blue text-white">
+            <div class="container mx-auto px-4 sm:px-6">
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 text-center">
+                    <div class="space-y-1">
+                        <p class="text-2xl md:text-3xl xl:text-4xl font-serif font-bold text-legal-gold">15+</p>
+                        <p class="text-[9px] md:text-[10px] uppercase tracking-widest text-gray-400 font-bold">Años</p>
+                    </div>
+                    <div class="space-y-1">
+                        <p class="text-2xl md:text-3xl xl:text-4xl font-serif font-bold text-legal-gold">500+</p>
+                        <p class="text-[9px] md:text-[10px] uppercase tracking-widest text-gray-400 font-bold">Clientes</p>
+                    </div>
+                    <div class="space-y-1">
+                        <p class="text-2xl md:text-3xl xl:text-4xl font-serif font-bold text-legal-gold">100%</p>
+                        <p class="text-[9px] md:text-[10px] uppercase tracking-widest text-gray-400 font-bold">Transparencia</p>
+                    </div>
+                    <div class="space-y-1">
+                        <p class="text-2xl md:text-3xl xl:text-4xl font-serif font-bold text-legal-gold">Web3</p>
+                        <p class="text-[9px] md:text-[10px] uppercase tracking-widest text-gray-400 font-bold">Especialistas</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services -->
+        <section id="servicios" class="py-16 md:py-24 bg-white dark:bg-gray-900 transition-colors">
+            <div class="container mx-auto px-4 sm:px-6">
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 md:mb-16 gap-6">
+                    <div class="max-w-2xl text-center md:text-left">
+                        <p class="text-legal-gold font-bold uppercase tracking-[0.3em] text-[10px] md:text-xs mb-3 md:mb-4">Especialidades</p>
+                        <h2 class="font-serif text-3xl md:text-4xl xl:text-5xl font-bold text-legal-blue dark:text-white leading-tight">Soluciones Legales</h2>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                    <template x-for="service in [
+                        { icon: 'cpu', title: 'Derecho Registral 4.0', desc: 'Tokenización de activos, Smart Contracts y activos digitales bajo normativa registral.' },
+                        { icon: 'landmark', title: 'Derechos Reales', desc: 'Propiedad, posesión, regularización de títulos y juicios de usucapión.' },
+                        { icon: 'building-2', title: 'Derecho Inmobiliario', desc: 'Gestión legal de condominios, desarrollos inmobiliarios y urbanísticos.' },
+                        { icon: 'scroll-text', title: 'Sucesiones', desc: 'Tramitación de declaratorias de herederos y partición patrimonial eficiente.' },
+                        { icon: 'handshake', title: 'Negociación', desc: 'Resolución estratégica de conflictos mediante mediación avanzada.' },
+                        { icon: 'shield-check', title: 'Auditoría Legal', desc: 'Due diligence integral para adquisiciones y transacciones de alto valor.' }
+                    ]">
+                        <div class="group p-8 md:p-10 bg-legal-bg dark:bg-legal-dark-bg/50 rounded-sm border border-gray-100 dark:border-gray-800 hover:border-legal-gold transition-all duration-500 hover:shadow-xl">
+                            <div class="mb-6 md:mb-8 inline-flex p-3 md:p-4 bg-white dark:bg-gray-800 rounded-full text-legal-gold group-hover:bg-legal-gold group-hover:text-white transition-all duration-300">
+                                <i :data-lucide="service.icon" class="w-5 h-5 md:w-6 md:h-6"></i>
+                            </div>
+                            <h3 class="font-serif text-xl md:text-2xl font-bold text-legal-blue dark:text-white mb-3 md:mb-4" x-text="service.title"></h3>
+                            <p class="text-gray-600 dark:text-gray-400 leading-relaxed text-xs md:text-sm" x-text="service.desc"></p>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contacto" class="py-16 md:py-24 bg-legal-blue text-white overflow-hidden">
+            <div class="container mx-auto px-4 sm:px-6">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
+                    <!-- Info -->
+                    <div class="space-y-8 md:space-y-12 text-center lg:text-left">
+                        <h2 class="font-serif text-4xl md:text-5xl font-bold leading-tight">Trabajemos <br class="hidden sm:block"/><span class="text-legal-gold italic">Juntos</span></h2>
+                        <div class="space-y-6 md:space-y-8 text-gray-400 text-sm md:text-base">
+                            <div class="flex flex-col sm:flex-row items-center gap-4 lg:gap-6">
+                                <div class="p-3 rounded-full bg-white/5 text-legal-gold shrink-0">
+                                    <i data-lucide="phone" class="w-5 h-5"></i>
+                                </div>
+                                <span>+54 9 351 306-0524</span>
+                            </div>
+                            <div class="flex flex-col sm:flex-row items-center gap-4 lg:gap-6">
+                                <div class="p-3 rounded-full bg-white/5 text-legal-gold shrink-0">
+                                    <i data-lucide="mail" class="w-5 h-5"></i>
+                                </div>
+                                <span class="break-all">iparedesbenedetti@gmail.com</span>
+                            </div>
+                            <div class="flex flex-col sm:flex-row items-center gap-4 lg:gap-6">
+                                <div class="p-3 rounded-full bg-white/5 text-legal-gold shrink-0">
+                                    <i data-lucide="map-pin" class="w-5 h-5"></i>
+                                </div>
+                                <span>Córdoba, Argentina</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Form Card -->
+                    <div x-data="contactForm()" class="bg-white dark:bg-gray-800 p-1.5 md:p-2 rounded-sm shadow-2xl text-gray-800 dark:text-white">
+                        <div class="flex p-1 bg-gray-100 dark:bg-gray-900 rounded-sm mb-4 md:mb-6">
+                            <button @click="activeTab = 'message'" class="flex-1 py-3 md:py-4 text-[10px] md:text-xs font-bold tracking-widest uppercase rounded-sm transition-all" :class="activeTab === 'message' ? 'bg-white dark:bg-gray-700 shadow-md text-legal-blue dark:text-white' : 'text-gray-400'">MENSAJE</button>
+                            <button @click="activeTab = 'calendar'" class="flex-1 py-3 md:py-4 text-[10px] md:text-xs font-bold tracking-widest uppercase rounded-sm transition-all" :class="activeTab === 'calendar' ? 'bg-white dark:bg-gray-700 shadow-md text-legal-blue dark:text-white' : 'text-gray-400'">TURNO</button>
+                        </div>
+                        
+                        <div class="p-4 md:p-6">
+                            <!-- Message Tab -->
+                            <div x-show="activeTab === 'message'" class="space-y-4 md:space-y-5">
+                                <div x-show="status === 'success'" class="bg-green-50 dark:bg-green-900/20 p-4 rounded-sm text-green-700 dark:text-green-300 text-sm mb-4" x-cloak>¡Mensaje enviado con éxito! Nos contactaremos pronto.</div>
+                                <form x-show="status !== 'success'" @submit.prevent="submit" class="space-y-4 md:space-y-5">
+                                    <div class="space-y-4">
+                                        <input type="text" required x-model="formData.name" class="w-full px-4 py-3 md:py-4 border-b bg-transparent outline-none dark:border-gray-700 focus:border-legal-gold text-sm md:text-base transition-colors" placeholder="Nombre Completo" />
+                                        <input type="email" required x-model="formData.email" class="w-full px-4 py-3 md:py-4 border-b bg-transparent outline-none dark:border-gray-700 focus:border-legal-gold text-sm md:text-base transition-colors" placeholder="Email" />
+                                    </div>
+                                    <textarea rows="4" required x-model="formData.message" class="w-full px-4 py-3 border bg-gray-50 dark:bg-gray-900 outline-none resize-none dark:border-gray-700 focus:border-legal-gold text-sm md:text-base transition-all" placeholder="Escriba su consulta..."></textarea>
+                                    <button type="submit" class="w-full py-4 md:py-5 bg-legal-blue dark:bg-legal-gold text-white font-bold tracking-widest uppercase shadow-xl hover:bg-black dark:hover:bg-legal-gold-light transition-all text-xs md:text-sm">
+                                        <span x-show="status !== 'sending'">ENVIAR</span>
+                                        <span x-show="status === 'sending'" class="animate-pulse">ENVIANDO...</span>
+                                    </button>
+                                </form>
+                            </div>
+                            <!-- Calendar Tab -->
+                            <div x-show="activeTab === 'calendar'" class="w-full" x-cloak>
+                                <div class="calendly-inline-widget w-full" data-url="https://calendly.com/iparedesbenedetti" style="height:500px; min-width: 100%;"></div>
+                                <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
 
     <!-- Footer -->
-    <footer class="bg-legal-navy py-12 md:py-16 text-center px-6 relative overflow-hidden">
-        <div class="relative z-10">
-            <div class="flex items-center justify-center gap-3 mb-6">
-                <i class="fa-solid fa-scale-balanced text-legal-gold text-3xl opacity-80"></i>
-            </div>
-            <p class="text-xs md:text-sm tracking-widest uppercase mb-6 fuente-elegante-cursiva text-white/90">
-                &copy; 2025 Estudio Jurídico Paredes Benedetti.
+    <footer class="bg-legal-blue text-white py-12 md:py-16 border-t border-white/5 text-center px-4">
+        <div class="container mx-auto">
+            <div class="w-12 h-12 bg-legal-gold rounded-sm flex items-center justify-center text-white font-serif font-bold text-xl mx-auto mb-6">PB</div>
+            <p class="text-xs md:text-sm uppercase tracking-[0.3em] text-gray-500 font-bold mb-4">Paredes Benedetti & Asociados</p>
+            <p class="text-[10px] md:text-xs text-gray-600 tracking-widest">
+                &copy; <span x-text="new Date().getFullYear()"></span> TODOS LOS DERECHOS RESERVADOS. CÓRDOBA, ARGENTINA.
             </p>
-            
-            <div class="text-[10px] tracking-[0.2em] md:tracking-[0.3em] uppercase flex items-center justify-center gap-2 text-white/40 hover:text-white/60 transition-colors cursor-default">
-                Desarrollado por Flop Design 
-                <!-- Icono o logo genérico como placeholder -->
-                <span class="inline-block w-6 h-6 rounded-full bg-white/10 flex items-center justify-center">
-                    <i class="fa-solid fa-code text-[8px]"></i>
-                </span>
-            </div>
         </div>
-        <!-- Decoración de fondo footer -->
-        <div class="absolute top-0 left-0 w-full h-full opacity-5 pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
     </footer>
 
     <!-- WhatsApp Floating Button -->
-    <a href="https://wa.me/5493513060524" target="_blank" rel="noopener noreferrer" 
-       class="fixed bottom-6 right-6 md:bottom-10 md:right-10 bg-[#25D366] text-white w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center text-2xl md:text-3xl shadow-2xl hover:scale-110 active:scale-95 transition-all z-[100] hover:bg-[#20bd5a]" 
-       aria-label="Contactar por WhatsApp">
-        <i class="fa-brands fa-whatsapp"></i>
+    <a href="https://wa.me/5493513060524" target="_blank" class="fixed bottom-4 right-4 md:bottom-8 md:right-8 z-50 bg-[#25D366] text-white p-3.5 md:p-4 rounded-full shadow-2xl hover:scale-110 active:scale-95 transition-transform" aria-label="WhatsApp">
+        <i data-lucide="message-circle" class="w-6 h-6 md:w-8 md:h-8 fill-white"></i>
     </a>
 
     <script>
-        // Lógica del Modo Oscuro
-        document.addEventListener('DOMContentLoaded', () => {
-            const toggle = document.getElementById('dark-mode-toggle');
-            const html = document.documentElement;
-
-            // Verificar preferencia guardada
-            const savedMode = localStorage.getItem('darkMode');
-            if (savedMode === 'on') {
-                html.classList.add('dark-mode');
-            }
-
-            toggle.addEventListener('click', () => {
-                html.classList.toggle('dark-mode');
-                const isDark = html.classList.contains('dark-mode');
-                localStorage.setItem('darkMode', isDark ? 'on' : 'off');
-            });
-        });
+        // Initialize Lucide Icons
+        window.addEventListener('load', () => lucide.createIcons());
+        document.addEventListener('alpine:initialized', () => lucide.createIcons());
     </script>
 </body>
 </html>
