@@ -5,16 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Estudio Jurídico Paredes Benedetti</title>
     
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <script>
         tailwind.config = {
+            darkMode: 'class', // Habilitamos el modo oscuro basado en clase
             theme: {
                 extend: {
                     colors: {
-                        legal: { navy: '#0f172a', gold: '#c5a059', charcoal: '#334155', soft: '#fcfcfc' }
+                        legal: { navy: '#0f172a', gold: '#c5a059', charcoal: '#334155', soft: '#fcfcfc', darkbg: '#071124' }
                     },
                     fontFamily: { 
                         serif: ['Cormorant Garamond', 'serif'], 
@@ -26,83 +34,139 @@
     </script>
 
     <style>
+        /* Variables CSS para transiciones suaves */
         :root {
-            --bg: #fcfcfc;
-            --text: #0f172a;
+            --bg-body: #fcfcfc;
+            --text-main: #0f172a;
             --muted: #334155;
             --gold: #c5a059;
+            --card-bg: #ffffff;
+            --border-color: #e2e8f0;
         }
+
         body { 
             font-family: 'Inter', sans-serif; 
-            background-color: var(--bg); 
-            color: var(--text); 
-            transition: background-color 240ms ease, color 240ms ease; 
+            background-color: var(--bg-body); 
+            color: var(--text-main); 
+            transition: background-color 0.3s ease, color 0.3s ease; 
+            overflow-x: hidden;
         }
-        .dark-mode { --bg: #071124; --text: #e6eef8; --muted: #94a3b8; --gold: #c5a059; }
-        
+
+        /* Configuración Modo Oscuro */
+        .dark-mode {
+            --bg-body: #071124;
+            --text-main: #e6eef8;
+            --muted: #94a3b8;
+            --gold: #c5a059;
+            --card-bg: #0f172a; /* Un poco más claro que el fondo para contraste */
+            --border-color: #1e293b;
+        }
+
         h1, h2, h3, h4 { font-family: 'Cormorant Garamond', serif; }
         
         .fuente-elegante-cursiva { 
-            font-family: 'Cormorant Garamond', serif !important; 
+            font-family: 'Cormorant Garamond', 'serif' !important; 
             font-style: italic !important;
             font-weight: 500 !important;
         }
 
+        /* Sección Blockchain con Fondo */
         .bg-blockchain-section {
             position: relative;
-            background-image: url('./blockchain.png');
+            /* Imagen de placeholder de alta calidad */
+            background-image: url('https://picsum.photos/seed/legaltech/1920/1080');
             background-size: cover;
             background-position: center;
-            background-attachment: fixed;
+            /* Fijo solo en desktop para evitar problemas en iOS/Android */
+            background-attachment: scroll; 
         }
+        
+        @media (min-width: 768px) {
+            .bg-blockchain-section {
+                background-attachment: fixed;
+            }
+        }
+
+        /* Overlay para legibilidad */
         .bg-blockchain-section::before {
             content: "";
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(255, 255, 255, 0.70); 
+            background: rgba(255, 255, 255, 0.85); 
             z-index: 1;
+            transition: background 0.3s ease;
         }
+
+        .dark-mode .bg-blockchain-section::before {
+            background: rgba(7, 17, 36, 0.85); 
+        }
+
         .content-relative { position: relative; z-index: 2; }
 
-        /* Dark Toggle */
+        /* Botón Toggle Dark Mode */
         .dark-toggle {
-            width:44px; height:44px;
+            width: 40px; height: 40px;
             display:inline-flex; align-items:center; justify-content:center;
             border-radius:9999px;
-            background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(250,250,250,0.9));
+            background: var(--card-bg);
             border: 1.5px solid var(--gold);
-            color: var(--text);
-            box-shadow: 0 6px 18px rgba(15,23,42,0.08);
+            color: var(--text-main);
+            box-shadow: 0 4px 12px rgba(15,23,42,0.1);
             cursor:pointer;
             position:relative; overflow:hidden; z-index:60;
+            transition: all 0.3s ease;
         }
-        .dark-toggle .icon { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; transition: transform 200ms ease, opacity 200ms ease; }
-        .dark-toggle .icon-sun { transform: translateY(-6px); opacity:0; }
-        .dark-toggle .icon-moon { transform: translateY(0); opacity:1; }
-        .dark-mode .dark-toggle .icon-sun { transform: translateY(0); opacity:1; }
-        .dark-mode .dark-toggle .icon-moon { transform: translateY(6px); opacity:0; }
+        .dark-mode .dark-toggle {
+            background: #1e293b;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
 
-        /* Ajustes Modo Oscuro */
-        .dark-mode body { background-color: var(--bg) !important; color: var(--text) !important; }
-        .dark-mode .bg-white, .dark-mode .bg-legal-soft { background-color: var(--bg) !important; }
-        .dark-mode .text-black, .dark-mode .text-legal-navy { color: var(--text) !important; }
-        .dark-mode .bg-blockchain-section::before { background: rgba(3,7,18,0.75); }
+        .dark-toggle .icon { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1), opacity 0.3s ease; }
+        .dark-toggle .icon-sun { transform: translateY(-100%); opacity:0; color: #fbbf24; }
+        .dark-toggle .icon-moon { transform: translateY(0); opacity:1; }
+        
+        .dark-mode .dark-toggle .icon-sun { transform: translateY(0); opacity:1; }
+        .dark-mode .dark-toggle .icon-moon { transform: translateY(100%); opacity:0; }
+
+        /* Utilidades de Color para Modo Oscuro (Integración con Tailwind) */
+        .dark-mode .bg-white { background-color: var(--card-bg) !important; }
+        .dark-mode .text-black, .dark-mode .text-legal-navy { color: var(--text-main) !important; }
+        .dark-mode .text-legal-charcoal { color: var(--muted) !important; }
+        .dark-mode .border-gray-100 { border-color: var(--border-color) !important; }
+        .dark-mode .bg-legal-soft { background-color: var(--bg-body) !important; }
+
+        /* Ajustes del Calendly Widget */
+        .calendly-container {
+            width: 100%;
+            min-height: 700px;
+        }
     </style>
 </head>
 
-<body class="text-legal-charcoal">
+<body class="text-legal-charcoal antialiased selection:bg-legal-gold selection:text-white">
 
-    <nav class="bg-white border-b border-gray-100 sticky top-0 z-50">
-        <div class="max-w-6xl mx-auto px-6 h-24 flex justify-between items-center">
+    <!-- Navegación -->
+    <nav class="bg-[var(--card-bg)] border-b border-[var(--border-color)] sticky top-0 z-50 transition-colors duration-300">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 md:h-20 flex justify-between items-center">
+            
+            <!-- Logo -->
             <div class="flex items-center gap-3">
-                <i class="fa-solid fa-scale-balanced text-legal-gold text-2xl"></i>
-                <div class="text-xl md:text-3xl fuente-elegante-cursiva text-black">
-                    Estudio Jurídico Paredes Benedetti
+                <i class="fa-solid fa-scale-balanced text-legal-gold text-xl md:text-2xl"></i>
+                <div class="text-base md:text-2xl fuente-elegante-cursiva text-[var(--text-main)] leading-tight">
+                    Estudio Jurídico <span class="hidden sm:inline">Paredes Benedetti</span>
+                    <span class="sm:hidden inline">PB</span>
                 </div>
             </div>
-            <div class="flex items-center gap-6">
-                <a href="#agenda" class="hidden md:block hover:text-legal-gold transition uppercase tracking-widest text-xs font-bold">Turnos Online</a>
-                <button id="dark-mode-toggle" class="dark-toggle" title="Alternar Modo">
+
+            <!-- Acciones Nav -->
+            <div class="flex items-center gap-4 md:gap-6">
+                <!-- Enlace Escritorio -->
+                <a href="#agenda" class="hidden md:block font-sans text-xs font-bold uppercase tracking-widest hover:text-legal-gold transition-colors text-[var(--text-main)]">
+                    Turnos Online
+                </a>
+                
+                <!-- Botón Dark Mode -->
+                <button id="dark-mode-toggle" class="dark-toggle" aria-label="Alternar Modo Oscuro">
                     <span class="icon icon-moon"><i class="fa-solid fa-moon"></i></span>
                     <span class="icon icon-sun"><i class="fa-solid fa-sun"></i></span>
                 </button>
@@ -110,76 +174,115 @@
         </div>
     </nav>
 
-    <section class="bg-legal-soft py-20 md:py-32">
+    <!-- Hero Section -->
+    <header class="bg-legal-soft py-16 md:py-28 transition-colors duration-300">
         <div class="max-w-5xl mx-auto px-6 text-center">
-            <h1 class="text-5xl md:text-7xl text-legal-navy mb-8 leading-tight italic">
-                Seguridad Jurídica para sus <br>
-                <span class="text-legal-gold">Activos Físicos y Digitales</span>
+            <h1 class="text-3xl sm:text-5xl md:text-7xl text-[var(--text-main)] mb-6 md:mb-10 leading-[1.1] md:leading-tight italic">
+                Seguridad Jurídica para sus 
+                <span class="text-legal-gold block mt-2">Activos Físicos y Digitales</span>
             </h1>
-            <p class="text-xl text-legal-charcoal/80 max-w-2xl mx-auto font-light tracking-wide">
-                Derecho Registral Inmobiliario & Especialización en Tecnología Blockchain.
+            <p class="text-base md:text-xl text-[var(--muted)] max-w-2xl mx-auto font-light tracking-wide px-4 mb-10">
+                Derecho Registral Inmobiliario & <br class="md:hidden">Especialización en Tecnología Blockchain.
             </p>
-        </div>
-    </section>
 
-    <section class="py-24 bg-blockchain-section text-black">
+            <!-- Botón CTA Móvil (Visible solo en móvil ya que el nav link está oculto) -->
+            <div class="md:hidden">
+                <a href="#agenda" class="inline-block bg-legal-gold text-white px-8 py-3 rounded-full font-bold text-xs tracking-widest shadow-lg hover:brightness-110 transition-all w-full max-w-xs">
+                    Agendar Turno
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Blockchain / Servicios Section -->
+    <section class="py-20 md:py-24 bg-blockchain-section text-[var(--text-main)]">
         <div class="max-w-4xl mx-auto px-6 text-center content-relative">
-            <h2 class="text-4xl text-legal-navy mb-8 font-bold">Dra. Irene Yamila Paredes Benedetti</h2>
-            <div class="h-1 w-20 bg-legal-gold mb-12 mx-auto"></div>
-            <div class="text-2xl leading-relaxed space-y-6 fuente-elegante-cursiva">
-                <p>Especialista en Derecho Registral e Innovación Digital. Mi enfoque combina la tradición legal inmobiliaria con la vanguardia de Blockchain y Web3.</p>
-                <div class="grid md:grid-cols-2 gap-4 text-lg non-italic font-sans pt-6">
-                    <p>• Asesoría en Derechos Reales</p>
-                    <p>• División de Condominios</p>
-                    <p>• Usucapiones</p>
-                    <p>• Sucesiones</p>
-                    <p>• Declaratorias de herederos</p>
-                    <p>• Negociación y Mediación</p>
-                </div>
+            <h2 class="text-2xl md:text-3xl fuente-elegante-cursiva mb-6">Experiencia & Innovación</h2>
+            <p class="mb-8 text-sm md:text-base leading-relaxed max-w-2xl mx-auto">
+                Especialista en Derecho Registral e Innovación Digital. Mi enfoque combina la tradición legal inmobiliaria con la vanguardia de Blockchain y Web3 para garantizar protección integral.
+            </p>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4 text-base md:text-lg font-sans pt-6 max-w-3xl mx-auto text-left sm:text-center bg-[var(--card-bg)]/80 backdrop-blur-sm p-6 md:p-8 rounded-xl shadow-sm border border-[var(--border-color)]">
+                <p class="flex items-center gap-2 sm:justify-center"><span class="text-legal-gold text-lg">•</span> Asesoría en Derechos Reales</p>
+                <p class="flex items-center gap-2 sm:justify-center"><span class="text-legal-gold text-lg">•</span> División de Condominios</p>
+                <p class="flex items-center gap-2 sm:justify-center"><span class="text-legal-gold text-lg">•</span> Usucapiones</p>
+                <p class="flex items-center gap-2 sm:justify-center"><span class="text-legal-gold text-lg">•</span> Sucesiones</p>
+                <p class="flex items-center gap-2 sm:justify-center"><span class="text-legal-gold text-lg">•</span> Declaratorias de herederos</p>
+                <p class="flex items-center gap-2 sm:justify-center"><span class="text-legal-gold text-lg">•</span> Negociación y Mediación</p>
             </div>
         </div>
     </section>
 
-    <section class="py-12 text-center bg-white border-y border-gray-100 px-6">
-        <a href="https://www.abogado.org.ar/aranceles.php" target="_blank" class="inline-block bg-legal-gold text-white px-10 py-5 rounded-full font-bold text-xs tracking-widest hover:brightness-110 transition-all shadow-lg uppercase w-full md:w-auto">
-            Honorarios fijados por el Colegio de Abogados de Córdoba
-        </a>
+    <!-- Aranceles Section -->
+    <section class="py-12 text-center bg-[var(--card-bg)] border-y border-[var(--border-color)] px-6 transition-colors duration-300">
+        <div class="max-w-4xl mx-auto">
+            <a href="https://www.abogado.org.ar/aranceles.php" target="_blank" rel="noopener noreferrer" 
+               class="inline-flex items-center justify-center gap-2 bg-legal-gold text-white px-8 py-4 rounded-full font-bold text-[10px] md:text-xs tracking-widest hover:brightness-110 transition-all shadow-lg uppercase w-full md:w-auto group">
+                Honorarios Colegio de Abogados de Córdoba
+                <i class="fa-solid fa-arrow-up-right-from-square text-xs opacity-70 group-hover:opacity-100 transition-opacity"></i>
+            </a>
+        </div>
     </section>
 
-    <section id="agenda" class="py-24 bg-legal-soft">
-        <div class="max-w-5xl mx-auto px-6">
-            <h2 class="text-4xl text-center mb-16 text-legal-navy italic">Gestión de Turnos Online</h2>
-            <div class="rounded-3xl overflow-hidden border border-gray-100 shadow-2xl bg-white">
-                <div class="calendly-inline-widget" data-url="https://calendly.com/iparedesbenedetti/30min" style="min-width:320px;height:700px;"></div>
+    <!-- Agenda / Calendly Section -->
+    <section id="agenda" class="py-20 md:py-24 bg-legal-soft transition-colors duration-300">
+        <div class="max-w-5xl mx-auto px-4 md:px-6">
+            <h2 class="text-3xl md:text-4xl text-center mb-10 md:mb-16 text-[var(--text-main)] italic">Gestión de Turnos Online</h2>
+            
+            <div class="rounded-2xl overflow-hidden border border-[var(--border-color)] shadow-2xl bg-[var(--card-bg)]">
+                <div class="calendly-inline-widget calendly-container" data-url="https://calendly.com/iparedesbenedetti/30min"></div>
                 <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
             </div>
         </div>
     </section>
 
-    <footer class="bg-legal-navy py-16 text-center px-6 text-white/40">
-        <p class="text-xs tracking-widest uppercase mb-4 fuente-elegante-cursiva">&copy; 2025 Estudio Jurídico Paredes Benedetti.</p>
-        <div class="text-[10px] tracking-[0.3em] uppercase flex items-center justify-center gap-2">
-            Desarrollado por Flop Design 
-            <img src="./unnamed.jpg" class="h-4 inline opacity-20 grayscale">
+    <!-- Footer -->
+    <footer class="bg-legal-navy py-12 md:py-16 text-center px-6 relative overflow-hidden">
+        <div class="relative z-10">
+            <div class="flex items-center justify-center gap-3 mb-6">
+                <i class="fa-solid fa-scale-balanced text-legal-gold text-3xl opacity-80"></i>
+            </div>
+            <p class="text-xs md:text-sm tracking-widest uppercase mb-6 fuente-elegante-cursiva text-white/90">
+                &copy; 2025 Estudio Jurídico Paredes Benedetti.
+            </p>
+            
+            <div class="text-[10px] tracking-[0.2em] md:tracking-[0.3em] uppercase flex items-center justify-center gap-2 text-white/40 hover:text-white/60 transition-colors cursor-default">
+                Desarrollado por Flop Design 
+                <!-- Icono o logo genérico como placeholder -->
+                <span class="inline-block w-6 h-6 rounded-full bg-white/10 flex items-center justify-center">
+                    <i class="fa-solid fa-code text-[8px]"></i>
+                </span>
+            </div>
         </div>
+        <!-- Decoración de fondo footer -->
+        <div class="absolute top-0 left-0 w-full h-full opacity-5 pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
     </footer>
 
-    <a href="https://wa.me/5493513060524" class="fixed bottom-10 right-10 bg-[#25D366] text-white w-16 h-16 rounded-full flex items-center justify-center text-3xl shadow-2xl hover:scale-110 transition-all z-[100]" target="_blank">
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/5493513060524" target="_blank" rel="noopener noreferrer" 
+       class="fixed bottom-6 right-6 md:bottom-10 md:right-10 bg-[#25D366] text-white w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center text-2xl md:text-3xl shadow-2xl hover:scale-110 active:scale-95 transition-all z-[100] hover:bg-[#20bd5a]" 
+       aria-label="Contactar por WhatsApp">
         <i class="fa-brands fa-whatsapp"></i>
     </a>
 
     <script>
-        const toggle = document.getElementById('dark-mode-toggle');
-        const html = document.documentElement;
+        // Lógica del Modo Oscuro
+        document.addEventListener('DOMContentLoaded', () => {
+            const toggle = document.getElementById('dark-mode-toggle');
+            const html = document.documentElement;
 
-        toggle.addEventListener('click', () => {
-            html.classList.toggle('dark-mode');
-            localStorage.setItem('darkMode', html.classList.contains('dark-mode') ? 'on' : 'off');
+            // Verificar preferencia guardada
+            const savedMode = localStorage.getItem('darkMode');
+            if (savedMode === 'on') {
+                html.classList.add('dark-mode');
+            }
+
+            toggle.addEventListener('click', () => {
+                html.classList.toggle('dark-mode');
+                const isDark = html.classList.contains('dark-mode');
+                localStorage.setItem('darkMode', isDark ? 'on' : 'off');
+            });
         });
-
-        if (localStorage.getItem('darkMode') === 'on') {
-            html.classList.add('dark-mode');
-        }
     </script>
 </body>
 </html>
