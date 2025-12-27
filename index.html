@@ -185,7 +185,8 @@
         <!-- Hero Section -->
         <section id="hero" class="relative w-full min-h-screen flex items-center py-20 overflow-hidden text-center lg:text-left">
             <div class="absolute inset-0 z-0">
-                <div class="absolute inset-0 bg-gradient-to-br from-legal-bg via-legal-bg to-white dark:from-legal-dark-bg dark:via-legal-dark-bg dark:to-legal-blue/10"></div>
+                <div class="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20 dark:opacity-10" style="background-image: url('./portada.jpg')"></div>
+                <div class="absolute inset-0 bg-gradient-to-br from-legal-bg via-legal-bg/80 to-white/60 dark:from-legal-dark-bg dark:via-legal-dark-bg/80 dark:to-legal-blue/20"></div>
             </div>
 
             <div class="container mx-auto px-4 sm:px-6 relative z-10">
@@ -257,12 +258,15 @@
                         { icon: 'handshake', title: 'Negociación', desc: 'Resolución estratégica de conflictos mediante mediación avanzada.' },
                         { icon: 'shield-check', title: 'Auditoría Legal', desc: 'Due diligence integral para adquisiciones y transacciones de alto valor.' }
                     ]">
-                        <div class="group p-8 md:p-10 bg-legal-bg dark:bg-legal-dark-bg/50 rounded-sm border border-gray-100 dark:border-gray-800 hover:border-legal-gold transition-all duration-500 hover:shadow-xl">
-                            <div class="mb-6 md:mb-8 inline-flex p-3 md:p-4 bg-white dark:bg-gray-800 rounded-full text-legal-gold group-hover:bg-legal-gold group-hover:text-white transition-all duration-300">
+                        <div class="group p-8 md:p-10 bg-legal-bg dark:bg-legal-dark-bg/50 rounded-sm border border-gray-100 dark:border-gray-800 hover:border-legal-gold transition-all duration-500 hover:shadow-xl overflow-hidden relative">
+                            <template x-if="service.title === 'Derecho Registral 4.0'">
+                                <img src="./blockchain.png" alt="Blockchain context" class="absolute -right-10 -bottom-10 w-40 h-40 opacity-5 group-hover:opacity-10 transition-opacity duration-500 pointer-events-none" />
+                            </template>
+                            <div class="mb-6 md:mb-8 inline-flex p-3 md:p-4 bg-white dark:bg-gray-800 rounded-full text-legal-gold group-hover:bg-legal-gold group-hover:text-white transition-all duration-300 relative z-10">
                                 <i :data-lucide="service.icon" class="w-5 h-5 md:w-6 md:h-6"></i>
                             </div>
-                            <h3 class="font-serif text-xl md:text-2xl font-bold text-legal-blue dark:text-white mb-3 md:mb-4" x-text="service.title"></h3>
-                            <p class="text-gray-600 dark:text-gray-400 leading-relaxed text-xs md:text-sm" x-text="service.desc"></p>
+                            <h3 class="font-serif text-xl md:text-2xl font-bold text-legal-blue dark:text-white mb-3 md:mb-4 relative z-10" x-text="service.title"></h3>
+                            <p class="text-gray-600 dark:text-gray-400 leading-relaxed text-xs md:text-sm relative z-10" x-text="service.desc"></p>
                         </div>
                     </template>
                 </div>
@@ -294,6 +298,9 @@
                                     <i data-lucide="map-pin" class="w-5 h-5"></i>
                                 </div>
                                 <span>Córdoba, Argentina</span>
+                            </div>
+                            <div class="pt-6 opacity-30">
+                                <img src="./unnamed.png" alt="Estudio Jurídico" class="w-32 mx-auto lg:mx-0 filter grayscale invert" />
                             </div>
                         </div>
                     </div>
