@@ -2,7 +2,7 @@
 <html lang="es" class="scroll-smooth" x-data="{ darkMode: localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches) }" :class="{ 'dark': darkMode }" x-init="$watch('darkMode', val => localStorage.setItem('theme', val ? 'dark' : 'light'))">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Estudio Jurídico Paredes Benedetti | Innovación Legal</title>
     <meta name="description" content="Especialistas en Derecho Registral, Inmobiliario y Tecnología Blockchain en Córdoba. Seguridad jurídica para activos físicos y digitales." />
     
@@ -139,7 +139,7 @@
 
             <!-- Desktop Nav -->
             <nav class="hidden lg:flex items-center space-x-8 xl:space-x-10">
-                <template x-for="item in ['Inicio', 'Servicios', 'Nosotros', 'Contacto']">
+                <template x-for="item in ['Inicio', 'Servicios', 'Contacto']">
                     <a :href="'#' + item.toLowerCase()" class="text-xs uppercase tracking-widest font-bold text-legal-blue/70 dark:text-gray-400 hover:text-legal-gold dark:hover:text-legal-gold transition-colors" x-text="item"></a>
                 </template>
                 <button @click="darkMode = !darkMode" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-legal-blue dark:text-legal-gold" aria-label="Cambiar tema">
@@ -176,7 +176,7 @@
         >
             <a href="#hero" @click="mobileMenuOpen = false" class="text-lg font-serif font-bold text-legal-blue dark:text-white border-b border-gray-50 dark:border-gray-800 pb-2">Inicio</a>
             <a href="#servicios" @click="mobileMenuOpen = false" class="text-lg font-serif font-bold text-legal-blue dark:text-white border-b border-gray-50 dark:border-gray-800 pb-2">Servicios</a>
-            <a href="#nosotros" @click="mobileMenuOpen = false" class="text-lg font-serif font-bold text-legal-blue dark:text-white border-b border-gray-50 dark:border-gray-800 pb-2">El Estudio</a>
+
             <a href="#contacto" @click="mobileMenuOpen = false" class="text-lg font-serif font-bold text-legal-blue dark:text-white pb-2">Contacto</a>
         </div>
     </header>
@@ -190,26 +190,37 @@
             </div>
 
             <div class="container mx-auto px-4 sm:px-6 relative z-10">
-                <div class="max-w-4xl mx-auto lg:mx-0 space-y-6 md:space-y-8 animate-slide-up">
-                    <div class="inline-flex items-center gap-2 px-3 md:px-4 py-1.5 border border-legal-gold/30 bg-legal-gold/5 text-legal-gold uppercase tracking-[0.2em] text-[9px] md:text-[10px] font-bold rounded-full mx-auto lg:mx-0">
-                        Derecho 4.0 & Inmobiliario
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <!-- Text Content -->
+                    <div class="max-w-4xl mx-auto lg:mx-0 space-y-6 md:space-y-8 animate-slide-up">
+                        <div class="inline-flex items-center gap-2 px-3 md:px-4 py-1.5 border border-legal-gold/30 bg-legal-gold/5 text-legal-gold uppercase tracking-[0.2em] text-[9px] md:text-[10px] font-bold rounded-full mx-auto lg:mx-0">
+                            Derecho 4.0 & Inmobiliario
+                        </div>
+                        
+                        <h2 class="font-serif text-4xl sm:text-5xl md:text-6xl font-bold text-legal-blue dark:text-white leading-[1.15] md:leading-tight">
+                            Seguridad Jurídica en la <br class="hidden sm:block"><span class="text-legal-gold italic">Era Digital</span>.
+                        </h2>
+                        
+                        <p class="text-base md:text-lg text-gray-600 dark:text-gray-400 font-light leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                            Expertos en Derecho Registral Inmobiliario con especialización en <span class="font-semibold text-legal-blue dark:text-gray-200">Activos Digitales y Blockchain</span>. Protegemos lo que usted construye.
+                        </p>
+                        
+                        <div class="flex flex-col sm:flex-row gap-4 md:gap-5 justify-center lg:justify-start pt-4">
+                            <a href="#contacto" class="px-8 md:px-10 py-3.5 md:py-4 bg-legal-gold hover:bg-legal-gold-light text-white font-bold rounded-sm shadow-xl transition-all transform hover:-translate-y-1 text-xs md:text-sm tracking-widest text-center">
+                                AGENDAR CONSULTA
+                            </a>
+                            <a href="#servicios" class="px-8 md:px-10 py-3.5 md:py-4 border border-legal-blue/20 dark:border-gray-700 hover:bg-legal-blue hover:text-white dark:hover:bg-gray-800 text-legal-blue dark:text-gray-300 font-bold rounded-sm transition-all text-xs md:text-sm tracking-widest text-center">
+                                NUESTRAS ÁREAS
+                            </a>
+                        </div>
                     </div>
-                    
-                    <h2 class="font-serif text-4xl sm:text-5xl md:text-6xl xl:text-7xl font-bold text-legal-blue dark:text-white leading-[1.15] md:leading-tight">
-                        Seguridad Jurídica en la <br class="hidden sm:block"><span class="text-legal-gold italic">Era Digital</span>.
-                    </h2>
-                    
-                    <p class="text-base md:text-lg xl:text-xl text-gray-600 dark:text-gray-400 font-light leading-relaxed max-w-2xl mx-auto lg:mx-0">
-                        Expertos en Derecho Registral Inmobiliario con especialización en <span class="font-semibold text-legal-blue dark:text-gray-200">Activos Digitales y Blockchain</span>. Protegemos lo que usted construye.
-                    </p>
-                    
-                    <div class="flex flex-col sm:flex-row gap-4 md:gap-5 justify-center lg:justify-start pt-4">
-                        <a href="#contacto" class="px-8 md:px-10 py-3.5 md:py-4 bg-legal-gold hover:bg-legal-gold-light text-white font-bold rounded-sm shadow-xl transition-all transform hover:-translate-y-1 text-xs md:text-sm tracking-widest text-center">
-                            AGENDAR CONSULTA
-                        </a>
-                        <a href="#servicios" class="px-8 md:px-10 py-3.5 md:py-4 border border-legal-blue/20 dark:border-gray-700 hover:bg-legal-blue hover:text-white dark:hover:bg-gray-800 text-legal-blue dark:text-gray-300 font-bold rounded-sm transition-all text-xs md:text-sm tracking-widest text-center">
-                            NUESTRAS ÁREAS
-                        </a>
+
+                    <!-- Hero Image -->
+                    <div class="hidden lg:block animate-fade-in delay-300">
+                        <div class="relative group">
+                            <div class="absolute -inset-4 bg-legal-gold/10 rounded-sm blur-2xl group-hover:bg-legal-gold/20 transition-all duration-700"></div>
+                            <img src="./portada.jpg" alt="Innovación Legal" class="relative rounded-sm shadow-2xl grayscale hover:grayscale-0 transition-all duration-700 border border-white/10 dark:border-gray-800">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -299,9 +310,6 @@
                                 </div>
                                 <span>Córdoba, Argentina</span>
                             </div>
-                            <div class="pt-6 opacity-30">
-                                <img src="./unnamed.png" alt="Estudio Jurídico" class="w-32 mx-auto lg:mx-0 filter grayscale invert" />
-                            </div>
                         </div>
                     </div>
 
@@ -320,6 +328,7 @@
                                     <div class="space-y-4">
                                         <input type="text" required x-model="formData.name" class="w-full px-4 py-3 md:py-4 border-b bg-transparent outline-none dark:border-gray-700 focus:border-legal-gold text-sm md:text-base transition-colors" placeholder="Nombre Completo" />
                                         <input type="email" required x-model="formData.email" class="w-full px-4 py-3 md:py-4 border-b bg-transparent outline-none dark:border-gray-700 focus:border-legal-gold text-sm md:text-base transition-colors" placeholder="Email" />
+                                        <input type="tel" x-model="formData.phone" class="w-full px-4 py-3 md:py-4 border-b bg-transparent outline-none dark:border-gray-700 focus:border-legal-gold text-sm md:text-base transition-colors" placeholder="Teléfono" />
                                     </div>
                                     <textarea rows="4" required x-model="formData.message" class="w-full px-4 py-3 border bg-gray-50 dark:bg-gray-900 outline-none resize-none dark:border-gray-700 focus:border-legal-gold text-sm md:text-base transition-all" placeholder="Escriba su consulta..."></textarea>
                                     <button type="submit" class="w-full py-4 md:py-5 bg-legal-blue dark:bg-legal-gold text-white font-bold tracking-widest uppercase shadow-xl hover:bg-black dark:hover:bg-legal-gold-light transition-all text-xs md:text-sm">
