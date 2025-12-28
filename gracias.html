@@ -1,60 +1,66 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" x-data="{ darkMode: localStorage.getItem('theme') === 'dark' }" :class="{ 'dark': darkMode }">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mensaje Enviado | Estudio Jurídico</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Mensaje Enviado | Paredes Benedetti</title>
     
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #F8FAFC;
-            color: #334155;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            text-align: center;
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'legal-blue': '#0f172a',
+                        'legal-gold': '#926a2d',
+                        'legal-dark-bg': '#0B1120',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    }
+                }
+            }
         }
-        .card {
-            background: white;
-            padding: 3rem;
-            border-radius: 10px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-            max-width: 500px;
-        }
-        h1 {
-            font-family: 'Playfair Display', serif;
-            color: #0F172A;
-            margin-bottom: 1rem;
-        }
-        .icon-success {
-            font-size: 4rem;
-            color: #25d366; /* Verde éxito */
-            margin-bottom: 1rem;
-        }
-        .btn {
-            display: inline-block;
-            background-color: #0F172A;
-            color: white;
-            padding: 0.8rem 1.5rem;
-            text-decoration: none;
-            border-radius: 5px;
-            margin-top: 2rem;
-            font-weight: 600;
-        }
-    </style>
+    </script>
 </head>
-<body>
-    <div class="card">
-        <i class="fa-regular fa-circle-check icon-success"></i>
-        <h1>¡Mensaje Recibido!</h1>
-        <p>Gracias por contactarse con nuestro Estudio Jurídico.</p>
-        <p>Hemos recibido su consulta correctamente. Nos pondremos en contacto con usted a la brevedad.</p>
-        <a href="index.html" class="btn">Volver al Inicio</a>
+<body class="bg-slate-50 text-legal-blue dark:bg-legal-dark-bg dark:text-gray-200 min-h-screen flex items-center justify-center p-4">
+
+    <div class="max-w-md w-full text-center space-y-8 animate-in fade-in zoom-in duration-700">
+        <div class="relative mx-auto w-20 h-20 bg-legal-gold/10 rounded-full flex items-center justify-center text-legal-gold">
+            <i data-lucide="check-circle-2" class="w-12 h-12"></i>
+        </div>
+
+        <div class="space-y-4">
+            <h1 class="font-serif text-3xl md:text-4xl font-bold">¡Mensaje Recibido!</h1>
+            <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
+                Gracias por contactar al <strong>Estudio Paredes Benedetti</strong>. <br>
+                Nos pondremos en contacto con usted a la brevedad.
+            </p>
+        </div>
+
+        <div class="pt-6">
+            <a href="index.html" class="inline-flex items-center gap-2 px-8 py-4 bg-legal-blue dark:bg-legal-gold text-white font-bold rounded-sm shadow-xl hover:scale-105 transition-transform text-xs tracking-widest uppercase">
+                <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                Volver al Inicio
+            </a>
+        </div>
+
+        <div class="pt-12 border-t border-gray-200 dark:border-gray-800">
+            <p class="text-[10px] uppercase tracking-widest text-gray-400 font-bold">
+                Paredes Benedetti & Asociados
+            </p>
+        </div>
     </div>
+
+    <script>
+        lucide.createIcons();
+    </script>
 </body>
 </html>
