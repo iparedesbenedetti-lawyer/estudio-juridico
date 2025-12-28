@@ -37,12 +37,12 @@
                             },
                             body: JSON.stringify({
                                 _subject: `Web Consulta: ${this.formData.name}`,
-                                _captcha: "false",
+                                _captcha: false,
                                 nombre: this.formData.name,
                                 email: this.formData.email,
                                 telefono: this.formData.phone,
                                 mensaje: this.formData.message,
-                                _template: "basic"
+                                _template: "inline"
                             })
                         });
 
@@ -333,11 +333,11 @@
                                 <div x-show="status === 'success'" class="bg-green-50 dark:bg-green-900/20 p-4 rounded-sm text-green-700 dark:text-green-300 text-sm mb-4" x-cloak>¡Mensaje enviado con éxito! Nos contactaremos pronto.</div>
                                 <form x-show="status !== 'success'" @submit.prevent="submit" class="space-y-4 md:space-y-5">
                                     <div class="space-y-4">
-                                        <input type="text" required x-model="formData.name" class="w-full px-4 py-3 md:py-4 border-b bg-transparent outline-none dark:border-gray-700 focus:border-legal-gold text-sm md:text-base transition-colors" placeholder="Nombre Completo" />
-                                        <input type="email" required x-model="formData.email" class="w-full px-4 py-3 md:py-4 border-b bg-transparent outline-none dark:border-gray-700 focus:border-legal-gold text-sm md:text-base transition-colors" placeholder="Email" />
-                                        <input type="tel" required name="telefono" x-model="formData.phone" class="w-full px-4 py-3 md:py-4 border-b bg-transparent outline-none dark:border-gray-700 focus:border-legal-gold text-sm md:text-base transition-colors" placeholder="Teléfono" />
+                                        <input type="text" name="nombre" required x-model="formData.name" class="w-full px-4 py-3 md:py-4 border-b bg-transparent outline-none dark:border-gray-700 focus:border-legal-gold text-sm md:text-base transition-colors" placeholder="Nombre Completo" />
+                                        <input type="email" name="email" required x-model="formData.email" class="w-full px-4 py-3 md:py-4 border-b bg-transparent outline-none dark:border-gray-700 focus:border-legal-gold text-sm md:text-base transition-colors" placeholder="Email" />
+                                        <input type="tel" name="telefono" required x-model="formData.phone" class="w-full px-4 py-3 md:py-4 border-b bg-transparent outline-none dark:border-gray-700 focus:border-legal-gold text-sm md:text-base transition-colors" placeholder="Teléfono" />
                                     </div>
-                                    <textarea rows="4" required x-model="formData.message" class="w-full px-4 py-3 border bg-gray-50 dark:bg-gray-900 outline-none resize-none dark:border-gray-700 focus:border-legal-gold text-sm md:text-base transition-all" placeholder="Escriba su consulta..."></textarea>
+                                    <textarea name="mensaje" rows="4" required x-model="formData.message" class="w-full px-4 py-3 border bg-gray-50 dark:bg-gray-900 outline-none resize-none dark:border-gray-700 focus:border-legal-gold text-sm md:text-base transition-all" placeholder="Escriba su consulta..."></textarea>
                                     <button type="submit" class="w-full py-4 md:py-5 bg-legal-blue dark:bg-legal-gold text-white font-bold tracking-widest uppercase shadow-xl hover:bg-black dark:hover:bg-legal-gold-light transition-all text-xs md:text-sm">
                                         <span x-show="status !== 'sending'">ENVIAR</span>
                                         <span x-show="status === 'sending'" class="animate-pulse">ENVIANDO...</span>
