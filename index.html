@@ -37,6 +37,7 @@
                             },
                             body: JSON.stringify({
                                 _subject: `Web Consulta: ${this.formData.name}`,
+                                _captcha: "false",
                                 nombre: this.formData.name,
                                 email: this.formData.email,
                                 telefono: this.formData.phone,
@@ -55,7 +56,7 @@
                         }
                     } catch (error) {
                         console.error("Error:", error);
-                        window.location.href = `mailto:iparedesbenedetti@gmail.com?subject=Consulta Web&body=Nombre: ${this.formData.name}%0D%0AEmail: ${this.formData.email}%0D%0AMensaje: ${this.formData.message}`;
+                        window.location.href = `mailto:iparedesbenedetti@gmail.com?subject=Consulta Web&body=Nombre: ${this.formData.name}%0D%0AEmail: ${this.formData.email}%0D%0ATeléfono: ${this.formData.phone}%0D%0AMensaje: ${this.formData.message}`;
                         this.status = 'idle';
                     }
                 }
@@ -310,6 +311,12 @@
                                 </div>
                                 <span>Córdoba, Argentina</span>
                             </div>
+                            <div class="pt-10 flex justify-center lg:justify-start">
+                                <a href="https://www.abogado.org.ar/aranceles.php" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-3 px-6 py-3 bg-white/5 border border-legal-gold/30 hover:bg-legal-gold/10 text-legal-gold rounded-sm transition-all group max-w-xs text-center">
+                                    <i data-lucide="external-link" class="w-5 h-5 group-hover:scale-110 transition-transform shrink-0"></i>
+                                    <span class="text-[10px] md:text-xs font-bold tracking-widest uppercase">Honorarios fijados por Colegio de Abogados de Córdoba</span>
+                                </a>
+                            </div>
                         </div>
                     </div>
 
@@ -328,7 +335,7 @@
                                     <div class="space-y-4">
                                         <input type="text" required x-model="formData.name" class="w-full px-4 py-3 md:py-4 border-b bg-transparent outline-none dark:border-gray-700 focus:border-legal-gold text-sm md:text-base transition-colors" placeholder="Nombre Completo" />
                                         <input type="email" required x-model="formData.email" class="w-full px-4 py-3 md:py-4 border-b bg-transparent outline-none dark:border-gray-700 focus:border-legal-gold text-sm md:text-base transition-colors" placeholder="Email" />
-                                        <input type="tel" x-model="formData.phone" class="w-full px-4 py-3 md:py-4 border-b bg-transparent outline-none dark:border-gray-700 focus:border-legal-gold text-sm md:text-base transition-colors" placeholder="Teléfono" />
+                                        <input type="tel" required name="telefono" x-model="formData.phone" class="w-full px-4 py-3 md:py-4 border-b bg-transparent outline-none dark:border-gray-700 focus:border-legal-gold text-sm md:text-base transition-colors" placeholder="Teléfono" />
                                     </div>
                                     <textarea rows="4" required x-model="formData.message" class="w-full px-4 py-3 border bg-gray-50 dark:bg-gray-900 outline-none resize-none dark:border-gray-700 focus:border-legal-gold text-sm md:text-base transition-all" placeholder="Escriba su consulta..."></textarea>
                                     <button type="submit" class="w-full py-4 md:py-5 bg-legal-blue dark:bg-legal-gold text-white font-bold tracking-widest uppercase shadow-xl hover:bg-black dark:hover:bg-legal-gold-light transition-all text-xs md:text-sm">
