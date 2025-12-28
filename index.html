@@ -106,11 +106,11 @@
             </nav>
 
             <div class="lg:hidden flex items-center gap-2">
-                <button @click="darkMode = !darkMode" class="text-legal-blue dark:text-legal-gold p-2">
+                <button @click="darkMode = !darkMode" class="text-legal-blue dark:text-legal-gold p-2" aria-label="Cambiar tema">
                     <i x-show="!darkMode" data-lucide="moon" class="w-5 h-5"></i>
                     <i x-show="darkMode" data-lucide="sun" class="w-5 h-5" x-cloak></i>
                 </button>
-                <button @click="mobileMenuOpen = !mobileMenuOpen" class="text-legal-blue dark:text-white p-2">
+                <button @click="mobileMenuOpen = !mobileMenuOpen" class="text-legal-blue dark:text-white p-2" aria-label="Menu">
                     <i x-show="!mobileMenuOpen" data-lucide="menu" class="w-6 h-6"></i>
                     <i x-show="mobileMenuOpen" data-lucide="x" class="w-6 h-6" x-cloak></i>
                 </button>
@@ -130,6 +130,7 @@
                 <div class="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20 dark:opacity-10" style="background-image: url('./portada.jpg')"></div>
                 <div class="absolute inset-0 bg-gradient-to-br from-legal-bg via-legal-bg/80 to-white/60 dark:from-legal-dark-bg dark:via-legal-dark-bg/80 dark:to-legal-blue/20"></div>
             </div>
+
             <div class="container mx-auto px-4 sm:px-6 relative z-10">
                 <div class="grid lg:grid-cols-2 gap-12 items-center">
                     <div class="max-w-4xl mx-auto lg:mx-0 space-y-6 md:space-y-8 animate-slide-up">
@@ -157,6 +158,33 @@
             </div>
         </section>
 
+        <section id="servicios" class="py-16 md:py-24 bg-white dark:bg-gray-900 transition-colors text-center md:text-left">
+            <div class="container mx-auto px-4 sm:px-6">
+                <div class="mb-12 md:mb-16">
+                    <p class="text-legal-gold font-bold uppercase tracking-[0.3em] text-[10px] md:text-xs mb-3 md:mb-4">Especialidades</p>
+                    <h2 class="font-serif text-3xl md:text-4xl xl:text-5xl font-bold text-legal-blue dark:text-white leading-tight">Soluciones Legales</h2>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                    <template x-for="service in [
+                        { icon: 'cpu', title: 'Derecho Registral 4.0', desc: 'Tokenización de activos, Smart Contracts y activos digitales bajo normativa registral.' },
+                        { icon: 'landmark', title: 'Derechos Reales', desc: 'Propiedad, posesión, regularización de títulos y juicios de usucapión.' },
+                        { icon: 'building-2', title: 'Derecho Inmobiliario', desc: 'Gestión legal de condominios, desarrollos inmobiliarios y urbanísticos.' },
+                        { icon: 'scroll-text', title: 'Sucesiones', desc: 'Tramitación de declaratorias de herederos y partición patrimonial eficiente.' },
+                        { icon: 'handshake', title: 'Negociación', desc: 'Resolución estratégica de conflictos mediante mediación avanzada.' },
+                        { icon: 'shield-check', title: 'Auditoría Legal', desc: 'Due diligence integral para adquisiciones y transacciones de alto valor.' }
+                    ]">
+                        <div class="group p-8 md:p-10 bg-legal-bg dark:bg-legal-dark-bg/50 rounded-sm border border-gray-100 dark:border-gray-800 hover:border-legal-gold transition-all duration-500 hover:shadow-xl overflow-hidden relative">
+                            <div class="mb-6 md:mb-8 inline-flex p-3 md:p-4 bg-white dark:bg-gray-800 rounded-full text-legal-gold group-hover:bg-legal-gold group-hover:text-white transition-all duration-300 relative z-10">
+                                <i :data-lucide="service.icon" class="w-5 h-5 md:w-6 md:h-6"></i>
+                            </div>
+                            <h3 class="font-serif text-xl md:text-2xl font-bold text-legal-blue dark:text-white mb-3 md:mb-4 relative z-10" x-text="service.title"></h3>
+                            <p class="text-gray-600 dark:text-gray-400 leading-relaxed text-xs md:text-sm relative z-10" x-text="service.desc"></p>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </section>
+
         <section id="contacto" class="py-16 md:py-24 bg-legal-blue text-white overflow-hidden">
             <div class="container mx-auto px-4 sm:px-6">
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
@@ -164,41 +192,53 @@
                         <h2 class="font-serif text-4xl md:text-5xl font-bold leading-tight">Trabajemos <br class="hidden sm:block"/><span class="text-legal-gold italic">Juntos</span></h2>
                         <div class="space-y-6 md:space-y-8 text-gray-400 text-sm md:text-base">
                             <div class="flex flex-col sm:flex-row items-center gap-4 lg:gap-6">
-                                <div class="p-3 rounded-full bg-white/5 text-legal-gold"><i data-lucide="phone" class="w-5 h-5"></i></div>
+                                <div class="p-3 rounded-full bg-white/5 text-legal-gold shrink-0"><i data-lucide="phone" class="w-5 h-5"></i></div>
                                 <span>+54 9 351 306-0524</span>
                             </div>
                             <div class="flex flex-col sm:flex-row items-center gap-4 lg:gap-6">
-                                <div class="p-3 rounded-full bg-white/5 text-legal-gold"><i data-lucide="mail" class="w-5 h-5"></i></div>
+                                <div class="p-3 rounded-full bg-white/5 text-legal-gold shrink-0"><i data-lucide="mail" class="w-5 h-5"></i></div>
                                 <span class="break-all">iparedesbenedetti@gmail.com</span>
+                            </div>
+                            <div class="flex flex-col sm:flex-row items-center gap-4 lg:gap-6">
+                                <div class="p-3 rounded-full bg-white/5 text-legal-gold shrink-0"><i data-lucide="map-pin" class="w-5 h-5"></i></div>
+                                <span>Córdoba, Argentina</span>
+                            </div>
+                            <div class="pt-10 flex justify-center lg:justify-start">
+                                <a href="https://www.abogado.org.ar/aranceles.php" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-3 px-6 py-3 bg-white/5 border border-legal-gold/30 hover:bg-legal-gold/10 text-legal-gold rounded-sm transition-all group max-w-xs text-center">
+                                    <i data-lucide="external-link" class="w-5 h-5 group-hover:scale-110 transition-transform shrink-0"></i>
+                                    <span class="text-[10px] md:text-xs font-bold tracking-widest uppercase">Honorarios fijados por Colegio de Abogados de Córdoba</span>
+                                </a>
                             </div>
                         </div>
                     </div>
 
-                    <div x-data="contactForm()" class="bg-white dark:bg-gray-800 p-2 rounded-sm shadow-2xl text-gray-800 dark:text-white">
-                        <div class="flex p-1 bg-gray-100 dark:bg-gray-900 rounded-sm mb-6">
-                            <button @click="activeTab = 'message'" class="flex-1 py-4 text-xs font-bold tracking-widest uppercase rounded-sm transition-all" :class="activeTab === 'message' ? 'bg-white dark:bg-gray-700 shadow-md text-legal-blue dark:text-white' : 'text-gray-400'">MENSAJE</button>
-                            <button @click="activeTab = 'calendar'" class="flex-1 py-4 text-xs font-bold tracking-widest uppercase rounded-sm transition-all" :class="activeTab === 'calendar' ? 'bg-white dark:bg-gray-700 shadow-md text-legal-blue dark:text-white' : 'text-gray-400'">TURNO</button>
+                    <div x-data="contactForm()" class="bg-white dark:bg-gray-800 p-1.5 md:p-2 rounded-sm shadow-2xl text-gray-800 dark:text-white">
+                        <div class="flex p-1 bg-gray-100 dark:bg-gray-900 rounded-sm mb-4 md:mb-6">
+                            <button @click="activeTab = 'message'" class="flex-1 py-3 md:py-4 text-[10px] md:text-xs font-bold tracking-widest uppercase rounded-sm transition-all" :class="activeTab === 'message' ? 'bg-white dark:bg-gray-700 shadow-md text-legal-blue dark:text-white' : 'text-gray-400'">MENSAJE</button>
+                            <button @click="activeTab = 'calendar'" class="flex-1 py-3 md:py-4 text-[10px] md:text-xs font-bold tracking-widest uppercase rounded-sm transition-all" :class="activeTab === 'calendar' ? 'bg-white dark:bg-gray-700 shadow-md text-legal-blue dark:text-white' : 'text-gray-400'">TURNO</button>
                         </div>
                         
                         <div class="p-4 md:p-6 text-left">
-                            <div x-show="activeTab === 'message'" class="space-y-5">
-                                <form action="https://formsubmit.co/iparedesbenedetti@gmail.com" method="POST" class="space-y-5">
+                            <div x-show="activeTab === 'message'" class="space-y-4 md:space-y-5">
+                                <form action="https://formsubmit.co/iparedesbenedetti@gmail.com" method="POST" class="space-y-4 md:space-y-5">
                                     <input type="hidden" name="_next" value="https://estudioparedesbenedetti.com.ar/gracias.html">
                                     <input type="hidden" name="_captcha" value="false">
                                     <input type="hidden" name="_template" value="table">
-                                    <input type="hidden" name="_subject" value="Nueva Consulta: Estudio Paredes Benedetti">
+                                    <input type="hidden" name="_subject" value="Nueva Consulta desde la Web">
 
                                     <div class="space-y-4">
-                                        <input type="text" name="Nombre" required x-model="formData.name" class="w-full px-4 py-4 border-b bg-transparent outline-none dark:border-gray-700 focus:border-legal-gold text-sm transition-colors" placeholder="Nombre Completo" />
-                                        <input type="email" name="Email" required x-model="formData.email" class="w-full px-4 py-4 border-b bg-transparent outline-none dark:border-gray-700 focus:border-legal-gold text-sm transition-colors" placeholder="Email" />
-                                        <input type="tel" name="Telefono" required x-model="formData.phone" class="w-full px-4 py-4 border-b bg-transparent outline-none dark:border-gray-700 focus:border-legal-gold text-sm transition-colors" placeholder="Teléfono" />
+                                        <input type="text" name="Nombre" required x-model="formData.name" class="w-full px-4 py-3 md:py-4 border-b bg-transparent outline-none dark:border-gray-700 focus:border-legal-gold text-sm md:text-base transition-colors" placeholder="Nombre Completo" />
+                                        <input type="email" name="Email" required x-model="formData.email" class="w-full px-4 py-3 md:py-4 border-b bg-transparent outline-none dark:border-gray-700 focus:border-legal-gold text-sm md:text-base transition-colors" placeholder="Email" />
+                                        <input type="tel" name="Telefono" required x-model="formData.phone" class="w-full px-4 py-3 md:py-4 border-b bg-transparent outline-none dark:border-gray-700 focus:border-legal-gold text-sm md:text-base transition-colors" placeholder="Teléfono" />
                                     </div>
-                                    <textarea name="Mensaje" rows="4" required x-model="formData.message" class="w-full px-4 py-3 border bg-gray-50 dark:bg-gray-900 outline-none resize-none dark:border-gray-700 focus:border-legal-gold text-sm transition-all" placeholder="Escriba su consulta..."></textarea>
-                                    <button type="submit" class="w-full py-5 bg-legal-blue dark:bg-legal-gold text-white font-bold tracking-widest uppercase shadow-xl hover:bg-black transition-all text-xs">ENVIAR</button>
+                                    <textarea name="Mensaje" rows="4" required x-model="formData.message" class="w-full px-4 py-3 border bg-gray-50 dark:bg-gray-900 outline-none resize-none dark:border-gray-700 focus:border-legal-gold text-sm md:text-base transition-all" placeholder="Escriba su consulta..."></textarea>
+                                    <button type="submit" class="w-full py-4 md:py-5 bg-legal-blue dark:bg-legal-gold text-white font-bold tracking-widest uppercase shadow-xl hover:bg-black transition-all text-xs md:text-sm">
+                                        ENVIAR
+                                    </button>
                                 </form>
                             </div>
                             <div x-show="activeTab === 'calendar'" class="w-full" x-cloak>
-                                <div class="calendly-inline-widget w-full" data-url="https://calendly.com/iparedesbenedetti" style="height:500px;"></div>
+                                <div class="calendly-inline-widget w-full" data-url="https://calendly.com/iparedesbenedetti" style="height:500px; min-width: 100%;"></div>
                                 <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
                             </div>
                         </div>
@@ -208,17 +248,18 @@
         </section>
     </main>
 
-    <footer class="bg-legal-blue text-white py-12 text-center border-t border-white/5">
-        <div class="container mx-auto px-4">
+    <footer class="bg-legal-blue text-white py-12 md:py-16 border-t border-white/5 text-center px-4">
+        <div class="container mx-auto">
             <div class="w-12 h-12 bg-legal-gold rounded-sm flex items-center justify-center text-white font-serif font-bold text-xl mx-auto mb-6">PB</div>
-            <p class="text-[10px] md:text-xs text-gray-600 tracking-widest uppercase">
+            <p class="text-xs md:text-sm uppercase tracking-[0.3em] text-gray-500 font-bold mb-4">Paredes Benedetti & Asociados</p>
+            <p class="text-[10px] md:text-xs text-gray-600 tracking-widest">
                 &copy; <span x-text="new Date().getFullYear()"></span> TODOS LOS DERECHOS RESERVADOS. CÓRDOBA, ARGENTINA.
             </p>
         </div>
     </footer>
 
-    <a href="https://wa.me/5493513060524" target="_blank" class="fixed bottom-4 right-4 z-50 bg-[#25D366] text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-transform">
-        <i data-lucide="message-circle" class="w-6 h-6 fill-white"></i>
+    <a href="https://wa.me/5493513060524" target="_blank" class="fixed bottom-4 right-4 md:bottom-8 md:right-8 z-50 bg-[#25D366] text-white p-3.5 md:p-4 rounded-full shadow-2xl hover:scale-110 active:scale-95 transition-transform" aria-label="WhatsApp">
+        <i data-lucide="message-circle" class="w-6 h-6 md:w-8 md:h-8 fill-white"></i>
     </a>
 
     <script>
